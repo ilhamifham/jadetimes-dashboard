@@ -9,8 +9,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        "wix-100" : "#eceff3",
+        "wix-200" : "#d6e6fe",
+        "wix-300" : "#116dff",
+      },
+      fontFamily: {
+        sans: ["var(--font-madefor)"],
       },
     },
   },

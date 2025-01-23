@@ -1,21 +1,38 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+*,
+*::before,
+*::after {
+  font: unset;
+  color: unset;
+  background: unset;
+  border-radius: unset;
+  outline: unset
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@tailwind base;
+
+@layer base {
+  *:focus-visible {
+    outline: 2px solid dodgerblue;
+    transition: none;
+    border-radius: 0px;
+    outline-offset: 1px;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@tailwind components;
+
+@layer components {
+  .btn {
+    @apply rounded-full whitespace-nowrap py-[0.375rem] font-medium px-6 flex items-center gap-[0.375rem];
+  }
+
+  .primary {
+    @apply bg-wix-300 text-white;
+  }
+
+  .secondary {
+    @apply bg-white text-wix-300 duration-300 hover:bg-wix-300 hover:text-white;
+  }
 }
+
+@tailwind utilities;

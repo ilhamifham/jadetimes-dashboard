@@ -20,13 +20,13 @@ const SearchBar = () => {
   }
 
   return (
-    <div className="relative flex items-center w-48">
-      <Search className="h-[1.875rem] w-[1.875rem] p-1 absolute left-[0.125rem] text-wix-300" />
+    <div className="relative flex items-center w-48 group">
+      <Search className="h-[1.875rem] w-[1.875rem] p-1 absolute left-[0.125rem] text-wix-300 pointer-events-none" />
       <input
         type="text"
         ref={searchRef}
         placeholder="Search"
-        className="py-1 px-[1.875rem] rounded-full border border-wix-200 outline-offset-2 w-full duration-300 hover:bg-wix-200 placeholder:text-neutral-500"
+        className="py-1 px-[1.875rem] rounded-full border border-wix-200 outline-offset-2 w-full duration-300 group-hover:bg-wix-200 placeholder:text-neutral-500"
         onChange={showDeleteButton}
       />
       {deleteButton && (

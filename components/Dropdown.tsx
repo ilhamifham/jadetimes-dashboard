@@ -24,37 +24,37 @@ const Dropdown = () => {
           <ul className="max-h-36 overflow-y-auto">
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>
@@ -63,37 +63,37 @@ const Dropdown = () => {
           <ul className="max-h-36 overflow-y-auto">
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">
-                <input type="checkbox" />
+                <input type="checkbox" className="accent-wix-300 scale-[1.2] cursor-pointer" />
                 Ilham Ifham
               </label>
             </li>

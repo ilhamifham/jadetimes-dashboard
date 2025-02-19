@@ -22,7 +22,7 @@ const InputPassword = ({ validate }: { validate: string | undefined }) => {
             ? "input pr-6 border-b-red-600 focus:border-b-red-600"
             : "input pr-6"
         }
-        // required
+        required
       />
       <button
         type="button"

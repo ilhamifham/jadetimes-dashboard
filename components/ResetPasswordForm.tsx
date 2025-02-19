@@ -13,10 +13,13 @@ const ResetPasswordForm = () => {
           type="email"
           name="email"
           id="email"
-          className="input"
           placeholder="Email"
-          defaultValue={state?.data as string}
-          // required
+          className={
+            state?.emailMessage
+              ? "input border-b-red-600 focus:border-b-red-600"
+              : "input"
+          }
+          required
         />
       </div>
       {state?.emailMessage && (

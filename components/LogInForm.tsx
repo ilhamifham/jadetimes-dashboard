@@ -21,8 +21,8 @@ const LogInForm = () => {
               ? "input border-b-red-600 focus:border-b-red-600"
               : "input"
           }
-          // required
-          defaultValue={state?.data as string}
+          required
+          defaultValue={state?.data}
         />
       </div>
       {state?.emailMessage && (

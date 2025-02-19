@@ -21,7 +21,6 @@ export async function logInAction(prevState: any, formData: FormData) {
   if (email !== user.email) {
     return {
       emailMessage: "Email does not exits",
-      data: email,
     };
   }
 
@@ -48,7 +47,6 @@ export async function resetPasswordAction(prevState: any, formData: FormData) {
   if (email !== user.email) {
     return {
       emailMessage: "Email does not exits",
-      data: email,
     };
   }
 }

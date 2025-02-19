@@ -12,15 +12,15 @@ const SearchBar = () => {
   }
 
   function clearSearch() {
-    if(searchRef.current) {
-        searchRef.current.value = "";
-        setDeleteButton(false);
-        searchRef.current.focus();
+    if (searchRef.current) {
+      searchRef.current.value = "";
+      setDeleteButton(false);
+      searchRef.current.focus();
     }
   }
 
   return (
-    <div className="relative flex items-center w-48 group">
+    <div className="relative flex items-center w-60 group">
       <Search className="h-[1.875rem] w-[1.875rem] p-1 absolute left-[0.125rem] text-wix-300 pointer-events-none" />
       <input
         type="text"

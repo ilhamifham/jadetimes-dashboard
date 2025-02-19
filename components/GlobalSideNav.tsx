@@ -35,10 +35,16 @@ const navigations = [
 
 const GlobalSideNav = () => {
   const pathname = usePathname();
-  const url = pathname.split("/")[3];
+  const url = pathname.split("/")[2];
 
   return (
-    <aside className={`bg-[#131720] duration-300 ${url === "create-post" ? "w-0 overflow-hidden" : "flex-none w-[255px] max-[1230px]:w-[54px]"}`}>
+    <aside
+      className={`bg-[#131720] duration-300 ${
+        url === "create-post"
+          ? "w-0 overflow-hidden"
+          : "flex-none w-[255px] max-[1230px]:w-[54px]"
+      }`}
+    >
       <nav>
         <ul className="text-neutral-300 font-medium text-sm mt-3">
           {navigations.map((navigation, index) => (

@@ -13,7 +13,7 @@ const TabPage = () => {
   return (
     <div className="flex flex-col items-center justify-center h-full">
       <Image src={noPost} alt="" priority />
-      <p className="font-bold mb-2">
+      <p className="font-bold mb-2 mt-5">
         {search === "trash"
           ? "No posts in trash"
           : search === "scheduled"

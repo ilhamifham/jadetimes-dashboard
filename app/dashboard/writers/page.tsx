@@ -15,8 +15,8 @@ export default function WritersPage() {
           </Link>
         </div>
       </div>
-      <div className="max-w-[1254px] min-w-[960px] mx-auto px-12 pb-12">
-        <div className="pt-6 sticky top-[90px] bg-wix-100">
+      <div className="max-w-[1254px] min-w-[960px] mx-auto px-12 pb-6">
+        <div className="sticky top-[90px] bg-wix-100">
           <div className="bg-white border-b border-b-tranparent px-6 py-[0.9375rem] text-sm rounded-t-md flex items-center">
             <div className="flex gap-3 items-center ml-auto">
               <SearchBar />

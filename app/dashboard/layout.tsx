@@ -1,7 +1,7 @@
 import GlobalTopNav from "@/components/GlobalTopNav";
 import GlobalSideNav from "@/components/GlobalSideNav";
 
-export default function UserLayout({
+export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

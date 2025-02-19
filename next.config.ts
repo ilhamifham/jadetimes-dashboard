@@ -5,16 +5,16 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/",
-        destination: "/auth?view=log-in",
+        destination: "/auth/login",
         permanent: true,
       },
       {
-        source: "/dashboard/:user",
-        destination: "/dashboard/:user/posts",
+        source: "/dashboard",
+        destination: "/dashboard/posts",
         permanent: true,
-      }
-    ]
-  }
+      },
+    ];
+  },
 };
 
 export default nextConfig;

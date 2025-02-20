@@ -10,6 +10,11 @@ const LogInForm = () => {
 
   return (
     <form className="flex flex-col gap-4 max-w-80 mx-auto" action={action}>
+      {state?.message && (
+        <div className="text-sm text-red-600 border border-red-200 text-center p-2 rounded-md bg-red-50">
+          {state.message}
+        </div>
+      )}
       <div>
         <input
           type="email"
@@ -22,7 +27,7 @@ const LogInForm = () => {
               : "input"
           }
           required
-          defaultValue={state?.data}
+          defaultValue={state?.data as string}
         />
       </div>
       {state?.emailMessage && (

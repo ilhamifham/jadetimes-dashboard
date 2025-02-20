@@ -8,6 +8,11 @@ const ResetPasswordForm = () => {
 
   return (
     <form className="flex flex-col gap-4" action={action}>
+      {state?.message && (
+        <div className="text-sm text-red-600 border border-red-200 text-center p-2 rounded-md bg-red-50">
+          {state.message}
+        </div>
+      )}
       <div>
         <input
           type="email"

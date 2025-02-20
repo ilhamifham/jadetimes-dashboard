@@ -6,8 +6,8 @@ const GlobalTopNav = () => {
   return (
     <header className="min-h-12 shadow-md relative z-[1]">
       <div className="h-12 px-4 flex items-center justify-center">
-        <Link href="" className="mr-auto w-36">
-          <Image src={Logo} alt="jadetimes"  />
+        <Link href="/dashboard" className="mr-auto w-36">
+          <Image src={Logo} alt="jadetimes" />
         </Link>
       </div>
     </header>

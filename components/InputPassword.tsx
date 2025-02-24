@@ -3,11 +3,7 @@
 import { useState } from "react";
 import { Hidden, Visible } from "@wix/wix-ui-icons-common";
 
-const InputPassword = ({
-  validate,
-}: {
-  validate: string | null | undefined;
-}) => {
+const InputPassword = ({ validate }: { validate: string | undefined }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   function toggleVisible() {

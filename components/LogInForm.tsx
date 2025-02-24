@@ -2,17 +2,17 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
-import { logInAction } from "@/actions/formActions";
+import { logIn } from "@/actions/formActions";
 import InputPassword from "@/components/InputPassword";
 
 const LogInForm = () => {
-  const [state, action, pending] = useActionState(logInAction, null);
+  const [state, logInAction, pending] = useActionState(logIn, undefined);
 
   return (
-    <form className="flex flex-col gap-4 max-w-80 mx-auto" action={action}>
-      {state?.message && (
+    <form className="flex flex-col gap-4 max-w-80 mx-auto" action={logInAction}>
+      {state?.errorMessage && (
         <div className="text-sm text-red-600 border border-red-200 text-center p-2 rounded-md bg-red-50">
-          {state.message}
+          {state.errorMessage}
         </div>
       )}
       <div>
@@ -26,8 +26,8 @@ const LogInForm = () => {
               ? "input border-b-red-600 focus:border-b-red-600"
               : "input"
           }
+          defaultValue={state?.emailValue}
           required
-          defaultValue={state?.data as string}
         />
       </div>
       {state?.emailMessage && (

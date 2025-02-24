@@ -9,7 +9,7 @@ export default function TagsPage() {
       <div className="max-w-[1254px] min-w-[960px] mx-auto px-12 sticky top-0 bg-wix-100">
         <div className="py-6 flex items-center">
           <h1 className="text-[1.75rem] font-bold w-full">Tags</h1>
-          <Link href="posts/create_post" className="btn primary">
+          <Link href="create_post" className="btn primary">
             <Add className="-ml-[0.375rem]" />
             Create Tag
           </Link>

@@ -1,58 +1,71 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { createSession, deleteSession } from "@/lib/sessions";
 
 const user = {
+  id: "1",
   email: "ilham@gmail.com",
   password: "12345",
+  role: "Admin",
 };
-
-const regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,}$/;
 
 function validateEmail(email: string) {
   if (!email) return "Email required";
-  if (!regEx.test(email)) return "Email is invalid";
-  return null;
 }
 
 function validatePassword(password: string) {
   if (!password) return "Password required";
-  return null;
 }
 
-export async function logInAction(prevState: any, formData: FormData) {
+// login
+export async function logIn(prevState: any, formData: FormData) {
   const formvalues = Object.fromEntries(formData);
   const { email, password } = formvalues;
-  const emailMessage = validateEmail(email as string);
-  const passwordMessage = validatePassword(password as string);
+  const emailValue = email as string;
+  const passwordValue = password as string;
+  const emailMessage = validateEmail(emailValue);
+  const passwordMessage = validatePassword(passwordValue);
 
   if (emailMessage || passwordMessage) {
-    return { emailMessage, passwordMessage, data: email };
+    return { emailMessage, passwordMessage, emailValue };
   }
 
   if (email !== user.email) {
-    return {
-      message: "User does not exits",
-    };
+    return { errorMessage: "User does not exits" };
   }
 
   if (password !== user.password) {
-    return { passwordMessage: "Password does not match", data: email };
+    return { passwordMessage: "Password does not match", emailValue };
   }
 
-  redirect("/dashboard/posts");
+  await createSession(user.id, user.role);
+
+  redirect("/dashboard");
 }
 
-export async function resetPasswordAction(prevState: any, formData: FormData) {
+// logout
+export async function logout() {
+  deleteSession();
+  redirect("/");
+}
+
+// reset password
+export async function resetPassword(prevState: any, formData: FormData) {
   const formvalues = Object.fromEntries(formData);
   const { email } = formvalues;
-  const emailMessage = validateEmail(email as string);
+  const emailValue = email as string;
+  const emailMessage = validateEmail(emailValue);
 
   if (emailMessage) return { emailMessage };
 
   if (email !== user.email) {
     return {
-      message: "Email does not exits",
+      errorMessage: "Email does not exits",
     };
   }
+
+  return {
+    successMesaage: "Email sent successfully",
+  };
 }

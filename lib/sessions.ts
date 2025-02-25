@@ -3,13 +3,13 @@
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 
-const secretKey = "secret";
-const encodedKey = new TextEncoder().encode(secretKey);
-
 type sessionPayload = {
   userId: string;
   userRole: string;
 };
+
+const secretKey = process.env.SESSION_SECRET;
+const encodedKey = new TextEncoder().encode(secretKey);
 
 // encrypt
 export async function encrypt(payload: sessionPayload) {
@@ -28,7 +28,7 @@ export async function decrypt(session: string | undefined = "") {
     return payload;
   } catch (error) {
     if (error) {
-      console.log("Failed to verify session");
+      return;
     }
   }
 }
@@ -39,34 +39,22 @@ export async function createSession(userId: string, userRole: string) {
   const cookieStore = await cookies();
 
   cookieStore.set("session", session, {
+    expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
     httpOnly: true,
     secure: true,
-    expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
-    sameSite: "strict",
-    path: "/",
-  });
-}
-
-// update session
-export async function updateSession() {
-  const cookieStore = await cookies();
-  const session = cookieStore.get("session")?.value;
-  const payload = await decrypt(session);
-
-  if (!session || !payload) {
-    return null;
-  }
-
-  cookieStore.set("session", session, {
-    httpOnly: true,
-    secure: true,
-    expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
     sameSite: "strict",
     path: "/",
   });
 }
 
 // verify session
+export async function verifySession() {
+  const cookieStore = await cookies();
+  const session = cookieStore.get("session")?.value;
+  const payload = await decrypt(session);
+
+  return payload;
+}
 
 // delete session
 export async function deleteSession() {

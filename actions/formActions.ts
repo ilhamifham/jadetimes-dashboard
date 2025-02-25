@@ -2,13 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createSession, deleteSession } from "@/lib/sessions";
-
-const user = {
-  id: "1",
-  email: "ilham@gmail.com",
-  password: "12345",
-  role: "Admin",
-};
+import { user } from "@/db/user";
 
 function validateEmail(email: string) {
   if (!email) return "Email required";
@@ -41,13 +35,13 @@ export async function logIn(prevState: any, formData: FormData) {
 
   await createSession(user.id, user.role);
 
-  redirect("/dashboard");
+  redirect("/dashboard/posts");
 }
 
 // logout
 export async function logout() {
-  deleteSession();
-  redirect("/");
+  await deleteSession();
+  redirect("/auth/login");
 }
 
 // reset password

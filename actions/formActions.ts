@@ -4,25 +4,41 @@ import { redirect } from "next/navigation";
 import { createSession, deleteSession } from "@/lib/sessions";
 import { user } from "@/db/user";
 
-function validateEmail(email: string) {
-  if (!email) return "Email required";
-}
-
-function validatePassword(password: string) {
-  if (!password) return "Password required";
-}
+const emailRequired = "Email required";
+const passwordRequired = "Password required";
+const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 // login
 export async function logIn(prevState: any, formData: FormData) {
   const formvalues = Object.fromEntries(formData);
   const { email, password } = formvalues;
-  const emailValue = email as string;
-  const passwordValue = password as string;
-  const emailMessage = validateEmail(emailValue);
-  const passwordMessage = validatePassword(passwordValue);
 
-  if (emailMessage || passwordMessage) {
-    return { emailMessage, passwordMessage, emailValue };
+  if (!email && !password) {
+    return {
+      email: emailRequired,
+      password: passwordRequired,
+    };
+  }
+
+  if (!email) {
+    return {
+      email: emailRequired,
+      password: passwordRequired,
+    };
+  }
+
+  if (!regex.test(email as string)) {
+    return {
+      email: "Invalid email",
+      password: passwordRequired,
+    };
+  }
+
+  if (!password) {
+    return {
+      emailValue: email,
+      password: passwordRequired,
+    };
   }
 
   if (email !== user.email) {
@@ -30,7 +46,10 @@ export async function logIn(prevState: any, formData: FormData) {
   }
 
   if (password !== user.password) {
-    return { passwordMessage: "Password does not match", emailValue };
+    return {
+      emailValue: email,
+      password: "Password does not match",
+    };
   }
 
   await createSession(user.id, user.role);
@@ -48,10 +67,18 @@ export async function logout() {
 export async function resetPassword(prevState: any, formData: FormData) {
   const formvalues = Object.fromEntries(formData);
   const { email } = formvalues;
-  const emailValue = email as string;
-  const emailMessage = validateEmail(emailValue);
 
-  if (emailMessage) return { emailMessage };
+  if (!email) {
+    return {
+      email: emailRequired,
+    };
+  }
+
+  if (!regex.test(email as string)) {
+    return {
+      email: "Invalid email",
+    };
+  }
 
   if (email !== user.email) {
     return {

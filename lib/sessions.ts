@@ -42,7 +42,7 @@ export async function createSession(userId: string, userRole: string) {
     expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
     httpOnly: true,
     secure: true,
-    sameSite: "strict",
+    sameSite: "lax",
     path: "/",
   });
 }

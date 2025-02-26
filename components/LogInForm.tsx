@@ -22,20 +22,17 @@ const LogInForm = () => {
           id="email"
           placeholder="Email"
           className={
-            state?.emailMessage
+            state?.email
               ? "input border-b-red-600 focus:border-b-red-600"
               : "input"
           }
-          defaultValue={state?.emailValue}
-          required
+          defaultValue={state?.emailValue as string}
         />
       </div>
-      {state?.emailMessage && (
-        <p className="text-sm text-red-600">{state.emailMessage}</p>
-      )}
-      <InputPassword validate={state?.passwordMessage} />
-      {state?.passwordMessage && (
-        <p className="text-sm text-red-600">{state.passwordMessage}</p>
+      {state?.email && <p className="text-sm text-red-600">{state.email}</p>}
+      <InputPassword validate={state?.password} />
+      {state?.password && (
+        <p className="text-sm text-red-600">{state.password}</p>
       )}
       <Link
         href="forgot-password"
@@ -44,7 +41,7 @@ const LogInForm = () => {
         Forgot Password?
       </Link>
       <button className="btn primary py-2 justify-center" disabled={pending}>
-        {pending ? "Submitting..." : "Log In"}
+        {pending ? "Loading..." : "Log In"}
       </button>
     </form>
   );

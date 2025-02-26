@@ -28,16 +28,13 @@ const ResetPasswordForm = () => {
           id="email"
           placeholder="Email"
           className={
-            state?.emailMessage
+            state?.email
               ? "input border-b-red-600 focus:border-b-red-600"
               : "input"
           }
-          required
         />
       </div>
-      {state?.emailMessage && (
-        <p className="text-sm text-red-600">{state.emailMessage}</p>
-      )}
+      {state?.email && <p className="text-sm text-red-600">{state.email}</p>}
       <button
         className="btn primary py-2 justify-center mt-6"
         disabled={pending}

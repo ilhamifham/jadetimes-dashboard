@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { createSession, deleteSession } from "@/lib/sessions";
-import { user } from "@/db/user";
+import { user } from "@/db/userTable";
 
 const emailRequired = "Email required";
 const passwordRequired = "Password required";

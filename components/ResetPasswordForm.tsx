@@ -2,6 +2,8 @@
 
 import { useActionState } from "react";
 import { resetPassword } from "@/actions/formActions";
+import FormInput from "@/components/FormInput";
+import FormButton from "@/components/FormButton";
 
 const ResetPasswordForm = () => {
   const [state, resetPasswordAction, pending] = useActionState(
@@ -21,26 +23,16 @@ const ResetPasswordForm = () => {
           {state.successMesaage}
         </div>
       )}
-      <div>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
-          className={
-            state?.email
-              ? "input border-b-red-600 focus:border-b-red-600"
-              : "input"
-          }
-        />
-      </div>
+      <FormInput
+        type="email"
+        name="email"
+        placeholder="Email"
+        error={state?.email as string}
+      />
       {state?.email && <p className="text-sm text-red-600">{state.email}</p>}
-      <button
-        className="btn primary py-2 justify-center mt-6"
-        disabled={pending}
-      >
+      <FormButton status={pending}>
         {pending ? "Sending..." : "Send"}
-      </button>
+      </FormButton>
     </form>
   );
 };

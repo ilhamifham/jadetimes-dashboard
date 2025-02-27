@@ -13,7 +13,7 @@ const TabList = ({ tabs }: { tabs: Tab[] }) => {
   const search = searchParams.get("tab");
 
   return (
-    <ul className="flex border-b border-b-neutral-200">
+    <ul className="flex border-b border-b-neutral-200 mt-6">
       {tabs.map((tab, index) => (
         <li
           key={index}

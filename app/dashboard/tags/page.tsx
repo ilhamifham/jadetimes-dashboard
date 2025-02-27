@@ -1,32 +1,25 @@
-import Link from "next/link";
-import { Add } from "@wix/wix-ui-icons-common";
+import PageSection from "@/components/PageSection";
+import PageHeader from "@/components/PageHeader";
+import PageH1 from "@/components/PageH1";
+import PageAddButton from "@/components/PageAddButton";
+import PageTable from "@/components/PageTable";
+import PageTableHeader from "@/components/PageTableHeader";
 import SearchBar from "@/components/Search";
-import TabPage from "@/components/TabPage";
 
 export default function TagsPage() {
   return (
-    <div className="w-full bg-wix-100 overflow-auto">
-      <div className="max-w-[1254px] min-w-[960px] mx-auto px-12 sticky top-0 bg-wix-100">
-        <div className="py-6 flex items-center">
-          <h1 className="text-[1.75rem] font-bold w-full">Tags</h1>
-          <Link href="create_post" className="btn primary">
-            <Add className="-ml-[0.375rem]" />
-            Create Tag
-          </Link>
+    <PageSection>
+      <PageHeader>
+        <div className="flex items-center justify-between">
+          <PageH1 text="Tags" />
+          <PageAddButton text="Create Tag" />
         </div>
-      </div>
-      <div className="max-w-[1254px] min-w-[960px] mx-auto px-12 pb-6">
-        <div className="sticky top-[90px] bg-wix-100">
-          <div className="bg-white border-b border-b-tranparent px-6 py-[0.9375rem] text-sm rounded-t-md flex items-center">
-            <div className="flex gap-3 items-center ml-auto">
-              <SearchBar />
-            </div>
-          </div>
-        </div>
-        <div className="bg-white h-[400px] rounded-b-md">
-          <TabPage />
-        </div>
-      </div>
-    </div>
+      </PageHeader>
+      <PageTable>
+        <PageTableHeader justify="justify-end">
+          <SearchBar />
+        </PageTableHeader>
+      </PageTable>
+    </PageSection>
   );
 }

@@ -1,5 +1,5 @@
-import GlobalTopNav from "@/components/GlobalTopNav";
-import GlobalSideNav from "@/components/GlobalSideNav";
+import Header from "@/components/Header";
+import Aside from "@/components/Aside";
 
 export default function DashboardLayout({
   children,
@@ -8,9 +8,9 @@ export default function DashboardLayout({
 }>) {
   return (
     <>
-      <GlobalTopNav />
-      <main className="flex h-[calc(100vh-48px)] overflow-hidden">
-        <GlobalSideNav />
+      <Header />
+      <main className="flex h-[calc(100vh-3rem)] overflow-hidden">
+        <Aside />
         {children}
       </main>
     </>

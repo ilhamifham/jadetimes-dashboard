@@ -1,4 +1,4 @@
-const Avatar = ({ className }: { className: string }) => {
+const AvatarIcon = ({ className }: { className: string }) => {
   return (
     <svg
       className={`rounded-full bg-[#e7f0ff] fill-[#a8caff] ${className}`}
@@ -9,4 +9,4 @@ const Avatar = ({ className }: { className: string }) => {
   );
 };
 
-export default Avatar;
+export default AvatarIcon;

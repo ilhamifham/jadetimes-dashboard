@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { Add } from "@wix/wix-ui-icons-common";
 import SearchBar from "@/components/Search";
-// import Dropdown from "@/components/Dropdown";
 import TabList from "@/components/TabList";
 import TabPage from "@/components/TabPage";
+import PageSection from "@/components/PageSection";
+import PageHeader from "@/components/PageHeader";
+import PageH1 from "@/components/PageH1";
+import PageTable from "@/components/PageTable";
+import PageTableHeader from "@/components/PageTableHeader";
 
 const tabs = [
   {
@@ -30,38 +34,25 @@ const tabs = [
 
 export default function PostsPage() {
   return (
-    <div className="w-full bg-wix-100 overflow-auto">
-      <div className="max-w-[1254px] min-w-[960px] mx-auto px-12 pb-6 sticky top-0 bg-wix-100">
-        <div className="py-6 flex items-center">
-          <h1 className="text-[1.75rem] font-bold w-full">Posts</h1>
+    <PageSection>
+      <PageHeader>
+        <div className="flex items-center justify-between">
+          <PageH1 text="Posts" />
           <Link href="create-post" className="btn primary">
-            <Add className="-ml-[0.375rem]" />
+            <Add className="-ml-[0.375rem] w-6 h-6" />
             Create New Post
           </Link>
         </div>
         <TabList tabs={tabs} />
-      </div>
-      <div className="max-w-[1254px] min-w-[960px] mx-auto px-12 pb-6">
-        <div className="sticky top-[9.75rem] bg-wix-100">
-          <div className="bg-white border-b border-b-tranparent px-6 py-[0.9375rem] text-sm rounded-t-md flex items-center">
-            {/* <label className="flex items-center gap-3 cursor-pointer select-none">
-              <input
-                type="checkbox"
-                className="accent-wix-300 scale-[1.2] cursor-pointer"
-              />{" "}
-              Select all
-            </label> */}
-            <div className="flex gap-3 items-center ml-auto">
-              {/* Filter by:
-              <Dropdown /> */}
-              <SearchBar />
-            </div>
-          </div>
-        </div>
-        <div className="bg-white h-[400px] rounded-b-md">
+      </PageHeader>
+      <PageTable>
+        <PageTableHeader isTabList={true} justify="justify-end">
+          <SearchBar />
+        </PageTableHeader>
+        <div className="bg-white h-[1400px] rounded-b-md">
           <TabPage />
         </div>
-      </div>
-    </div>
+      </PageTable>
+    </PageSection>
   );
 }

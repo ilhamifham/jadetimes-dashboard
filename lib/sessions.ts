@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 
 type sessionPayload = {
-  userId: string;
+  userId: number;
   userRole: string;
 };
 
@@ -34,14 +34,14 @@ export async function decrypt(session: string | undefined = "") {
 }
 
 // create session
-export async function createSession(userId: string, userRole: string) {
+export async function createSession(userId: number, userRole: string) {
   const session = await encrypt({ userId, userRole });
   const cookieStore = await cookies();
 
   cookieStore.set("session", session, {
     expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
     httpOnly: true,
-    secure: true,
+    secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
     path: "/",
   });

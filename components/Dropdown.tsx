@@ -59,7 +59,9 @@ const Dropdown = () => {
               </label>
             </li>
           </ul>
-          <div className="text-sm text-neutral-500 font-bold px-4 pt-4 pb-2 border-t border-t-neutral-200">Categories</div>
+          <div className="text-sm text-neutral-500 font-bold px-4 pt-4 pb-2 border-t border-t-neutral-200">
+            Categories
+          </div>
           <ul className="max-h-36 overflow-y-auto">
             <li>
               <label className="flex items-center gap-3 px-4 py-2 cursor-pointer hover:bg-wix-200">

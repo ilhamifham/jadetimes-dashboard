@@ -37,7 +37,7 @@ const TabPage = () => {
       </p>
       {search !== "trash" && (
         <Link href="create-post" className="text-wix-300 mt-4 flex gap-3">
-          <Add className="-ml-[0.375rem]" />
+          <Add className="-ml-[0.3rem]" />
           Create New Post
         </Link>
       )}

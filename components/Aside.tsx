@@ -29,28 +29,23 @@ const Aside = () => {
 
   return (
     <aside
-      className={`duration-300 ${
-        url === "create-post"
-          ? "w-0 overflow-hidden"
-          : "flex-none w-64 max-[1230px]:w-[3.375rem]"
+      className={`bg-[#131720] duration-300 ${
+        url === "create-post" ? "w-0 overflow-hidden" : "flex-none w-64 max-[1230px]:w-[3.375rem]"
       }`}
     >
       <nav>
-        <ul className="font-medium text-sm mt-3">
+        <ul className="font-medium text-sm mt-3 text-white">
           {navigations.map((navigation, index) => (
             <li key={index}>
               <Link
                 href={navigation.slug}
                 className={`py-[0.375rem] flex gap-3 items-center px-[0.9375rem] ${
-                  url === navigation.slug
-                    ? "bg-neutral-300"
-                    : "hover:bg-neutral-200"
+                  url === navigation.slug ? "bg-[#42454c]" : "hover:bg-[#2b2e36]"
                 }`}
               >
                 <navigation.icon className="w-6 h-6" />
                 <span className="max-[1230px]:hidden">
-                  {navigation.slug.charAt(0).toUpperCase() +
-                    navigation.slug.slice(1)}
+                  {navigation.slug.charAt(0).toUpperCase() + navigation.slug.slice(1)}
                 </span>
               </Link>
             </li>
@@ -62,7 +57,3 @@ const Aside = () => {
 };
 
 export default Aside;
-
-// #131720
-// #42454c
-// #2b2e36

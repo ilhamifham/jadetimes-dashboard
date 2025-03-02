@@ -25,10 +25,7 @@ const TabList = ({ tabs }: { tabs: Tab[] }) => {
               : undefined
           }
         >
-          <Link
-            href={`?tab=${tab.slug}`}
-            className="px-[1.125rem] pb-[0.9375rem] inline-block"
-          >
+          <Link href={`?tab=${tab.slug}`} className="px-[1.125rem] pb-[0.9375rem] inline-block">
             {tab.name}
           </Link>
         </li>

@@ -1,22 +1,34 @@
+import { getUserRole } from "@/lib/data";
 import PageSection from "@/components/PageSection";
 import PageHeader from "@/components/PageHeader";
 import PageH1 from "@/components/PageH1";
+import PageSubHeading from "@/components/PageSubHeading";
 import PageAddButton from "@/components/PageAddButton";
 import PageTable from "@/components/PageTable";
 import PageTableHeader from "@/components/PageTableHeader";
 import SearchBar from "@/components/Search";
+import NoPermission from "@/components/NoPermission";
 
-export default function CategoriesPage() {
+export default async function CategoriesPage() {
+  const role = await getUserRole();
+
+  if (role !== "Owner") {
+    return <NoPermission />;
+  }
+
   return (
     <PageSection>
       <PageHeader>
         <div className="flex items-center justify-between">
-          <PageH1 text="Categories" />
+          <div>
+            <PageH1 text="Categories" />
+            <PageSubHeading>Group posts by topic to help readers and search engines find your content.</PageSubHeading>
+          </div>
           <PageAddButton text="Create Category" />
         </div>
       </PageHeader>
       <PageTable>
-        <PageTableHeader justify="justify-end">
+        <PageTableHeader isSticky top="top-[5.625rem]" justify="justify-end">
           <SearchBar />
         </PageTableHeader>
       </PageTable>

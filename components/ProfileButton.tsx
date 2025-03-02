@@ -1,13 +1,19 @@
 "use client";
 
-import usePopover from "@/hooks/usePopover";
-import AvatarIcon from "@/components/AvatarIcon";
-import { logout } from "@/actions/formActions";
-import { Settings } from "@wix/wix-ui-icons-common";
 import Link from "next/link";
+import { FormEvent, useState } from "react";
+import usePopover from "@/hooks/usePopover";
+import { logOut } from "@/lib/auth";
+import AvatarIcon from "@/components/AvatarIcon";
+import { Settings } from "@wix/wix-ui-icons-common";
 
 const ProfileButton = () => {
   const [popover, popoverRef, togglePopover] = usePopover();
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function handleSubmit(event: FormEvent) {
+    await logOut(event, setIsLoading);
+  }
 
   return (
     <div className="relative h-[1.875rem]">
@@ -27,16 +33,12 @@ const ProfileButton = () => {
             </div>
           </div>
           <div className="p-4 flex items-center justify-between gap-6">
-            <Link
-              href="settings"
-              className="text-sm flex items-center gap-2"
-              onClick={togglePopover}
-            >
-              <Settings className="w-6 h-6" /> Account Settings
+            <Link href="settings" className="text-sm flex items-center gap-2" onClick={togglePopover}>
+              <Settings className="w-6 h-6 -ml-[0.2rem]" /> Account Settings
             </Link>
-            <form action={logout}>
-              <button className="btn secondary border border-wix-200 py-[0.313rem] px-4 text-sm">
-                Log Out
+            <form onSubmit={handleSubmit}>
+              <button className="btn secondary border border-wix-200 py-1 px-4 text-sm" disabled={isLoading}>
+                {isLoading ? "Loading..." : "Log Out"}
               </button>
             </form>
           </div>

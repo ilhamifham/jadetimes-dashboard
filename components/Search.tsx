@@ -31,10 +31,7 @@ const SearchBar = () => {
       />
       {deleteButton && (
         <button className="absolute right-[0.125rem] rounded-full">
-          <Dismiss
-            className="h-[1.875rem] w-[1.875rem] p-1 text-wix-300"
-            onClick={clearSearch}
-          />
+          <Dismiss className="h-[1.875rem] w-[1.875rem] p-1 text-wix-300" onClick={clearSearch} />
         </button>
       )}
     </div>

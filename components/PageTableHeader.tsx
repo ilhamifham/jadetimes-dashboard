@@ -1,20 +1,20 @@
 const PageTableHeader = ({
   children,
-  isTabList,
+  isSticky,
   justify,
+  top,
 }: Readonly<{
   children: React.ReactNode;
-  isTabList?: boolean;
-  justify: string;
+  isSticky?: boolean;
+  justify?: string;
+  top?: string;
 }>) => {
   return (
-    <div
-      className={`bg-wix-100 sticky ${
-        isTabList ? "top-[9.6875rem]" : "top-[5.625rem]"
-      }`}
-    >
+    <div className={`bg-wix-100 ${isSticky ? "sticky" : ""} ${top ? top : ""}`.trim()}>
       <div
-        className={`bg-white border-b border-b-wix-100 px-6 py-[0.9375rem] text-sm rounded-t-md h-[3.75rem] flex items-center ${justify}`}
+        className={`bg-white border-b border-b-wix-100 px-6 py-[0.9375rem] text-sm rounded-t-md h-[3.75rem] flex items-center ${
+          justify ? justify : "justify-start"
+        }`.trim()}
       >
         {children}
       </div>

@@ -46,10 +46,10 @@ export default function PostsPage() {
         <TabList tabs={tabs} />
       </PageHeader>
       <PageTable>
-        <PageTableHeader isTabList={true} justify="justify-end">
+        <PageTableHeader isSticky top="top-[9.6875rem]" justify="justify-end">
           <SearchBar />
         </PageTableHeader>
-        <div className="bg-white h-[1400px] rounded-b-md">
+        <div className="bg-white h-[400px] rounded-b-md">
           <TabPage />
         </div>
       </PageTable>

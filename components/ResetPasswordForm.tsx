@@ -3,7 +3,7 @@
 import { useState, useRef, FormEvent } from "react";
 import { resetPassword } from "@/lib/auth";
 import FormInput from "@/components/FormInput";
-import FormButton from "@/components/FormButton";
+import Button from "@/components/Button";
 
 const ResetPasswordForm = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -21,7 +21,9 @@ const ResetPasswordForm = () => {
       {error?.success && <div className="text-sm text-green-600 border border-green-200 text-center p-2 rounded-md bg-green-50">{error.success}</div>}
       <FormInput type="email" name="email" placeholder="Email" error={error?.email} ref={emailRef} />
       {error?.email && <p className="text-sm text-red-600">{error.email}</p>}
-      <FormButton status={isLoading}>{isLoading ? "Sending..." : "Send"}</FormButton>
+      <Button type="primary" size="big" className="justify-center mt-6" status={isLoading}>
+        {isLoading ? "Sending..." : "Send"}
+      </Button>
     </form>
   );
 };

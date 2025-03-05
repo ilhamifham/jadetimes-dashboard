@@ -1,24 +1,39 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import usePopover from "@/hooks/usePopover";
 import { logOut } from "@/lib/auth";
 import AvatarIcon from "@/components/AvatarIcon";
+import Button from "@/components/Button";
 import { Settings } from "@wix/wix-ui-icons-common";
 
-const ProfileButton = () => {
+type User = {
+  email: string | undefined;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  profileImage: string | null | undefined;
+};
+
+const ProfileButton = ({ user }: { user?: User }) => {
   const [popover, popoverRef, togglePopover] = usePopover();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   async function handleSubmit(event: FormEvent) {
-    await logOut(event, setIsLoading);
+    await logOut(event, setIsLoading, router);
   }
 
   return (
     <div className="relative h-[1.875rem]">
       <button onClick={togglePopover} className="rounded-full">
-        <AvatarIcon className="w-[1.875rem]" />
+        {user?.profileImage ? (
+          <Image src={user.profileImage} alt="profile image" width={72} height={72} className="w-[1.875rem] h-[1.875rem] rounded-full object-cover" />
+        ) : (
+          <AvatarIcon className="w-[1.875rem]" />
+        )}
       </button>
       {popover && (
         <div
@@ -26,10 +41,16 @@ const ProfileButton = () => {
           className="absolute bg-white w-80 top-12 right-0 shadow-lg border border-wix-200 rounded-lg"
         >
           <div className="flex items-center gap-3 border-b border-b-wix-200 p-4">
-            <AvatarIcon className="w-12" />
+            {user?.profileImage ? (
+              <Image src={user.profileImage} alt="profile image" width={72} height={72} className="w-12 h-12 rounded-full object-cover" />
+            ) : (
+              <AvatarIcon className="w-12" />
+            )}
             <div>
-              <div className="font-medium"></div>
-              <div className="text-neutral-500 text-sm"></div>
+              <div className="font-medium">
+                {user?.firstName} {user?.lastName}
+              </div>
+              <div className="text-neutral-500 text-sm">{user?.email}</div>
             </div>
           </div>
           <div className="p-4 flex items-center justify-between gap-6">
@@ -37,9 +58,9 @@ const ProfileButton = () => {
               <Settings className="w-6 h-6 -ml-[0.2rem]" /> Account Settings
             </Link>
             <form onSubmit={handleSubmit}>
-              <button className="btn secondary border border-wix-200 py-1 px-4 text-sm" disabled={isLoading}>
+              <Button type="secondary" size="small" status={isLoading}>
                 {isLoading ? "Loading..." : "Log Out"}
-              </button>
+              </Button>
             </form>
           </div>
         </div>

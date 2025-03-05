@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState, useRef, FormEvent } from "react";
 import { Hidden, Visible } from "@wix/wix-ui-icons-common";
 import FormInput from "@/components/FormInput";
-import FormButton from "@/components/FormButton";
+import Button from "@/components/Button";
 import { logIn } from "@/lib/auth";
 
 const LogInForm = () => {
@@ -14,13 +15,14 @@ const LogInForm = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const router = useRouter();
 
   function toggleVisible() {
     setIsVisible((prevVisible) => !prevVisible);
   }
 
   async function handleSubmit(event: FormEvent) {
-    await logIn(event, emailRef, passwordRef, setError, setIsLoading, regex);
+    await logIn(event, emailRef, passwordRef, setError, setIsLoading, regex, router);
   }
 
   return (
@@ -28,9 +30,9 @@ const LogInForm = () => {
       {error?.server && <div className="text-sm text-red-600 border border-red-200 text-center p-2 rounded-md bg-red-50">{error.server}</div>}
       <FormInput type="email" name="email" placeholder="Email" error={error?.email} ref={emailRef} />
       {error?.email && <p className="text-sm text-red-600">{error.email}</p>}
-      <div className="relative">
+      <div className="relative group">
         <FormInput type={isVisible ? "text" : "password"} name="password" placeholder="Password" error={error?.password} ref={passwordRef} />
-        <button type="button" className="absolute py-[0.125rem] bottom-[0.375rem] right-0 text-neutral-500" onClick={toggleVisible}>
+        <button type="button" className="absolute py-[0.125rem] p-1 bottom-[0.375rem] right-0 text-neutral-500" onClick={toggleVisible}>
           {isVisible ? <Hidden className="w-6 h-6" /> : <Visible className="w-6 h-6" />}
         </button>
       </div>
@@ -38,7 +40,9 @@ const LogInForm = () => {
       <Link href="forgot-password" className="text-sm underline w-fit mt-6 whitespace-nowrap">
         Forgot Password?
       </Link>
-      <FormButton status={isLoading}>{isLoading ? "Loading..." : "Log In"}</FormButton>
+      <Button type="primary" size="big" className="justify-center mt-6" status={isLoading}>
+        {isLoading ? "Loading..." : "Log In"}
+      </Button>
     </form>
   );
 };

@@ -3,39 +3,28 @@
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 
-type sessionPayload = {
-  userId: number;
-  userRole: string;
-};
-
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
 // encrypt
-export async function encrypt(payload: sessionPayload) {
-  return new SignJWT(payload)
-    .setProtectedHeader({ alg: "HS256" })
-    .setExpirationTime("1h")
-    .sign(encodedKey);
+export async function encrypt(payload: { userId: number }) {
+  return new SignJWT(payload).setProtectedHeader({ alg: "HS256" }).setExpirationTime("1h").sign(encodedKey);
 }
 
 // decrypt
-export async function decrypt(session: string | undefined = "") {
-  try {
+export async function decrypt(session: string | undefined) {
+  if (session) {
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ["HS256"],
     });
+
     return payload;
-  } catch (error) {
-    if (error) {
-      return;
-    }
   }
 }
 
 // create session
-export async function createSession(userId: number, userRole: string) {
-  const session = await encrypt({ userId, userRole });
+export async function createSession(userId: number) {
+  const session = await encrypt({ userId });
   const cookieStore = await cookies();
 
   cookieStore.set("session", session, {

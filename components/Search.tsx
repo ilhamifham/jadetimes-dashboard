@@ -8,7 +8,7 @@ const SearchBar = () => {
   const searchRef = useRef<HTMLInputElement>(null);
 
   function showDeleteButton() {
-    setDeleteButton(!!searchRef.current?.value);
+    setDeleteButton(searchRef.current?.value ? true : false);
   }
 
   function clearSearch() {
@@ -30,8 +30,8 @@ const SearchBar = () => {
         onChange={showDeleteButton}
       />
       {deleteButton && (
-        <button className="absolute right-[0.125rem] rounded-full">
-          <Dismiss className="h-[1.875rem] w-[1.875rem] p-1 text-wix-300" onClick={clearSearch} />
+        <button className="absolute right-[0.313rem] rounded-full bg-wix-100" onClick={clearSearch}>
+          <Dismiss className="h-5 w-5 p-[0.125rem] text-wix-300" />
         </button>
       )}
     </div>

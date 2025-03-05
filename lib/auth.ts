@@ -1,10 +1,13 @@
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+
 export async function logIn(
   event: React.FormEvent,
   emailRef: React.RefObject<HTMLInputElement | null>,
   passwordRef: React.RefObject<HTMLInputElement | null>,
   setError: React.Dispatch<React.SetStateAction<{ email?: string; password?: string; server?: string } | undefined>>,
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,
-  regex: RegExp
+  regex: RegExp,
+  router: AppRouterInstance
 ) {
   event.preventDefault();
 
@@ -76,7 +79,7 @@ export async function logIn(
         password: data.password,
       });
     } else {
-      location.reload();
+      router.refresh();
     }
   } catch (error: unknown) {
     setIsLoading(false);
@@ -93,7 +96,7 @@ export async function logIn(
   }
 }
 
-export async function logOut(event: React.FormEvent, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) {
+export async function logOut(event: React.FormEvent, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>, router: AppRouterInstance) {
   event.preventDefault();
 
   try {
@@ -104,7 +107,7 @@ export async function logOut(event: React.FormEvent, setIsLoading: React.Dispatc
     });
 
     if (response.ok) {
-      location.reload();
+      router.refresh();
     }
   } catch (error: unknown) {
     setIsLoading(false);

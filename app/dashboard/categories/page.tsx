@@ -3,11 +3,12 @@ import PageSection from "@/components/PageSection";
 import PageHeader from "@/components/PageHeader";
 import PageH1 from "@/components/PageH1";
 import PageSubHeading from "@/components/PageSubHeading";
-import PageAddButton from "@/components/PageAddButton";
+import Button from "@/components/Button";
 import PageTable from "@/components/PageTable";
 import PageTableHeader from "@/components/PageTableHeader";
 import SearchBar from "@/components/Search";
 import NoPermission from "@/components/NoPermission";
+import { Add } from "@wix/wix-ui-icons-common";
 
 export default async function CategoriesPage() {
   const role = await getUserRole();
@@ -24,7 +25,10 @@ export default async function CategoriesPage() {
             <PageH1 text="Categories" />
             <PageSubHeading>Group posts by topic to help readers and search engines find your content.</PageSubHeading>
           </div>
-          <PageAddButton text="Create Category" />
+          <Button type="primary" size="big">
+            <Add className="-ml-[0.1875rem] w-6 h-6" />
+            Create Category
+          </Button>
         </div>
       </PageHeader>
       <PageTable>

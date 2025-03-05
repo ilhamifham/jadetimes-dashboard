@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  await createSession(userDetail.id, userDetail.role);
+  await createSession(userDetail.id);
 
   return NextResponse.redirect(new URL("/dashboard/posts", request.nextUrl), 302);
 }

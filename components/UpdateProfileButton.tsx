@@ -8,14 +8,17 @@ import AvatarIcon from "@/components/AvatarIcon";
 import { PhotoCamera, X } from "@wix/wix-ui-icons-common";
 import useDialog from "@/hooks/useDialog";
 
-type User = {
-  id: number | undefined;
-  firstName: string | undefined;
-  lastName: string | undefined;
-  profileImage: string | null | undefined;
-};
+type User =
+  | {
+      id: number;
+      firstName: string;
+      lastName: string;
+      profileImage: string;
+    }
+  | null
+  | undefined;
 
-const UpdateProfileButton = ({ user }: { user?: User }) => {
+const UpdateProfileButton = ({ user }: { user: User }) => {
   const [dialog, openDialog, closeDialog] = useDialog();
   const [formData, setFormData] = useState({
     firstName: user?.firstName,

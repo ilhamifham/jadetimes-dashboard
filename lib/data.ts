@@ -1,3 +1,5 @@
+"use server";
+
 import { verifySession } from "@/lib/sessions";
 import { prisma } from "@/lib/prisma";
 
@@ -8,6 +10,9 @@ export async function getUserRole() {
     const userId = parseInt(session.userId as string);
     const userRole = await prisma.user.findUnique({
       where: { id: userId },
+      select: {
+        role: true,
+      },
     });
 
     return userRole?.role;
@@ -21,15 +26,16 @@ export async function getUserDetails() {
     const userId = parseInt(session.userId as string);
     const user = await prisma.user.findUnique({
       where: { id: userId },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        profileImage: true,
+      },
     });
 
-    return {
-      id: user?.id,
-      email: user?.email,
-      firstName: user?.firstName,
-      lastName: user?.lastName,
-      profileImage: user?.profileImage,
-    };
+    return user;
   }
 }
 
@@ -40,10 +46,21 @@ export async function getAllUsers() {
     const userId = parseInt(session.userId as string);
     const user = await prisma.user.findUnique({
       where: { id: userId },
+      select: {
+        role: true,
+      },
     });
 
     if (user?.role === "Owner") {
-      const users = await prisma.user.findMany();
+      const users = await prisma.user.findMany({
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          profileImage: true,
+          role: true,
+        },
+      });
 
       return users;
     }

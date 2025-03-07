@@ -9,7 +9,6 @@ import PageTableHeader from "@/components/PageTableHeader";
 import SearchBar from "@/components/Search";
 import NoPermission from "@/components/NoPermission";
 import { Add } from "@wix/wix-ui-icons-common";
-import TabPage from "@/components/TabPage";
 
 export default async function TagsPage() {
   const role = await getUserRole();
@@ -33,12 +32,9 @@ export default async function TagsPage() {
         </div>
       </PageHeader>
       <PageTable>
-        <PageTableHeader isSticky top="top-[5.625rem]" justify="justify-end">
+        <PageTableHeader isSticky top="top-[7.125rem]" justify="justify-end">
           <SearchBar />
         </PageTableHeader>
-        <div className="bg-white h-[400px] rounded-b-md">
-          <TabPage />
-        </div>
       </PageTable>
     </PageSection>
   );

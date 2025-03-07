@@ -13,19 +13,19 @@ const TabList = ({ tabs }: { tabs: Tab[] }) => {
   const search = searchParams.get("tab");
 
   return (
-    <ul className="flex border-b border-b-neutral-200">
+    <ul className="flex mr-auto text-base -ml-6">
       {tabs.map((tab, index) => (
         <li
           key={index}
           className={
             search === null
-              ? "first:border-b-[3px] first:border-b-wix-300 first:text-wix-300"
+              ? "first:text-wix-300 first:border-b-[3px] first:border-b-wix-300"
               : search === tab.slug
-              ? "border-b-[3px] border-b-wix-300 text-wix-300"
-              : undefined
+              ? "text-wix-300 border-b-[3px] border-b-wix-300"
+              : ""
           }
         >
-          <Link href={`?tab=${tab.slug}`} className="px-[1.125rem] pb-[0.9375rem] inline-block">
+          <Link href={`?tab=${tab.slug}`} className="px-4 pt-[3px] h-[3.5625rem] flex items-center whitespace-nowrap duration-300 hover:text-wix-300">
             {tab.name}
           </Link>
         </li>

@@ -36,8 +36,8 @@ const TabPage = () => {
           : "Once you publish posts, you’ll see them here."}
       </p>
       {search !== "trash" && (
-        <Link href="create-post" className="text-wix-300 mt-4 flex gap-3">
-          <Add className="-ml-[0.3rem]" />
+        <Link href="create-post" className="text-wix-300 mt-4 flex gap-3 items-center duration-300 hover:text-[#5999ff]">
+          <Add className="-ml-[0.3rem] w-6 h-6" />
           Create New Post
         </Link>
       )}

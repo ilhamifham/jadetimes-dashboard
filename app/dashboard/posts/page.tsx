@@ -44,7 +44,7 @@ export default function PostsPage() {
           </div>
           <Link
             href="create-post"
-            className="rounded-full whitespace-nowrap font-medium flex items-center gap-[0.375rem] py-[0.375rem] px-6 bg-wix-300 text-white"
+            className="rounded-full whitespace-nowrap font-medium flex items-center gap-[0.375rem] py-[0.375rem] px-6 bg-wix-300 text-white duration-300 hover:opacity-60"
           >
             <Add className="-ml-[0.1875rem] w-6 h-6" />
             Create New Post
@@ -52,11 +52,11 @@ export default function PostsPage() {
         </div>
       </PageHeader>
       <PageTable>
-        <PageTableHeader isSticky top="top-[9.6875rem]" justify="justify-end">
+        <PageTableHeader isSticky top="top-[7.125rem]" justify="justify-end">
           <TabList tabs={tabs} />
           <SearchBar />
         </PageTableHeader>
-        <div className="bg-white h-[400px] rounded-b-md">
+        <div className="bg-white h-[25rem] rounded-b-md">
           <TabPage />
         </div>
       </PageTable>

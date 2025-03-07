@@ -32,7 +32,7 @@ export default async function CategoriesPage() {
         </div>
       </PageHeader>
       <PageTable>
-        <PageTableHeader isSticky top="top-[5.625rem]" justify="justify-end">
+        <PageTableHeader isSticky top="top-[7.125rem]" justify="justify-end">
           <SearchBar />
         </PageTableHeader>
       </PageTable>

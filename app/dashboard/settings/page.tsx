@@ -10,7 +10,7 @@ import AvatarIcon from "@/components/AvatarIcon";
 import Button from "@/components/Button";
 import Label from "@/components/Label";
 import { getUserDetails } from "@/lib/data";
-import { X } from "@wix/wix-ui-icons-common";
+import UpdateProfileButton from "@/components/UpdateProfileButton";
 
 export default async function SettingsPage() {
   const user = await getUserDetails();
@@ -38,15 +38,19 @@ export default async function SettingsPage() {
             <div className="flex-none">
               <Label className="text-center" text="Image" />
               {user?.profileImage ? (
-                <Image src={user.profileImage} width={135} height={135} alt="" className="w-[5.625rem] h-[5.625rem] mt-2 rounded-full object-cover" />
+                <Image
+                  src={user.profileImage}
+                  width={135}
+                  height={135}
+                  alt=""
+                  className="w-[5.625rem] h-[5.625rem] mt-2 rounded-full object-cover object-top"
+                />
               ) : (
                 <AvatarIcon className="w-[5.625rem] h-[5.625rem] mt-2" />
               )}
             </div>
           </div>
-          <Button type="secondary" size="small">
-            Update Profile
-          </Button>
+          <UpdateProfileButton user={user} />
         </div>
         <PageTableHeader>
           <PageTableH2 text="Login info" />
@@ -55,7 +59,7 @@ export default async function SettingsPage() {
           <Label text="Account email" />
           <div className="flex items-center gap-6">
             <div className="bordered-box w-full max-w-4xl mr-auto">{user?.email}</div>
-            <Button type="secondary" size="small">
+            <Button type="secondary" size="small" status={true}>
               Edit Email
             </Button>
           </div>
@@ -63,31 +67,12 @@ export default async function SettingsPage() {
           <Label text="Password" />
           <div className="flex items-center gap-6">
             <div className="bordered-box w-full max-w-4xl mr-auto">• • • • • • • •</div>
-            <Button type="secondary" size="small">
+            <Button type="secondary" size="small" status={true}>
               Edit Password
             </Button>
           </div>
         </div>
       </PageTable>
-      <div className="fixed top-0 bottom-0 right-0 left-0 bg-[#162d3da8] flex items-center justify-center z-10 px-[3.375rem] py-12">
-        <div className="flex-none w-[31.875rem] bg-white py-[1.125rem] px-6 rounded-md relative">
-          <h3 className="font-bold text-xl mb-6">Change account details</h3>
-          <form action="">
-            <Label text="Update your first name" />
-            <input type="text" className="bordered-box w-full mb-6" />
-            <Label text="Update your last name" />
-            <input type="text" className="bordered-box w-full mb-6" />
-            <Label text="Update your image" />
-            <input type="file" className="bordered-box w-full mb-8" />
-            <Button size="small" type="primary" className="ml-auto">
-              Update
-            </Button>
-          </form>
-          <Button type="secondary" className="absolute top-[1.125rem] right-6">
-            <X size={28} />
-          </Button>
-        </div>
-      </div>
     </PageSection>
   );
 }

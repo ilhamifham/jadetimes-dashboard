@@ -13,7 +13,7 @@ import { Add } from "@wix/wix-ui-icons-common";
 export default async function CategoriesPage() {
   const role = await getUserRole();
 
-  if (role !== "Owner") {
+  if (role === "Guest Writer") {
     return <NoPermission />;
   }
 

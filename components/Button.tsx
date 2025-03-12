@@ -8,7 +8,7 @@ const Button = ({
   onClick,
 }: Readonly<{
   children: React.ReactNode;
-  type: "primary" | "secondary";
+  type?: "primary" | "secondary";
   status?: boolean;
   className?: string;
   size?: "small" | "big";
@@ -25,7 +25,7 @@ const Button = ({
   return (
     <button
       className={`rounded-full whitespace-nowrap font-medium flex items-center gap-[0.375rem] duration-300 ${
-        type === "secondary" ? secondary : primary
+        type === "secondary" ? secondary : type === "primary" ? primary : ""
       } ${size === "small" ? small : size === "big" ? big : ""} ${status ? "opacity-50" : ""} ${className}`}
       disabled={status}
       onClick={onClick}

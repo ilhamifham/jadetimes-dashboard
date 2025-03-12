@@ -20,17 +20,15 @@ type User =
 
 const UpdateProfileButton = ({ user }: { user: User }) => {
   const [dialog, openDialog, closeDialog] = useDialog();
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     firstName: user?.firstName,
     lastName: user?.lastName,
     profileImage: user?.profileImage,
   });
-  const [error, setError] = useState("");
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
-
-    console.log(formData);
   }
 
   function handleChange(event: ChangeEvent<HTMLInputElement>, name: string) {
@@ -96,20 +94,22 @@ const UpdateProfileButton = ({ user }: { user: User }) => {
                   ) : (
                     <AvatarIcon className="w-[5.625rem] h-[5.625rem]" />
                   )}
-                  <label htmlFor="profilePhoto" className="rounded-full absolute right-0 bottom-0" tabIndex={0}>
-                    <PhotoCamera
-                      size={28}
-                      className="w-7 h-7 border border-wix-200 rounded-full text-wix-300 bg-white cursor-pointer shadow-lg duration-300 hover:bg-wix-300 hover:text-white hover:border-wix-300"
-                    />
+                  <>
                     <input
                       type="file"
                       name="profileImage"
                       accept="image/*"
-                      id="profilePhoto"
-                      className="hidden"
+                      id="profileImage"
+                      className="sr-only peer"
                       onChange={(event) => handleChange(event, "profileImage")}
                     />
-                  </label>
+                    <label
+                      htmlFor="profileImage"
+                      className="rounded-full absolute right-0 bottom-0 border border-wix-200 text-wix-300 bg-white cursor-pointer shadow-lg duration-300 hover:bg-wix-300 hover:text-white hover:border-wix-300 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-1 peer-focus-visible:duration-0 peer-focus-visible:outline-[#1e90ff]"
+                    >
+                      <PhotoCamera size={28} className="w-7 h-7" />
+                    </label>
+                  </>
                 </div>
               </div>
               {error && <p className="text-red-600 text-sm text-center mb-6">{error}</p>}

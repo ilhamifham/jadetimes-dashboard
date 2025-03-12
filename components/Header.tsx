@@ -8,13 +8,11 @@ const Header = async () => {
   const user = await getUserDetails();
 
   return (
-    <header className="h-12 shadow-md relative z-[1] min-w-[64rem]">
-      <div className="h-full px-4 flex items-center justify-center">
-        <Link href="/dashboard/posts" className="mr-auto w-[9.19rem] min-w-[9.19rem]">
-          <Image src={Logo} alt="jadetimes" />
-        </Link>
-        <ProfileButton user={user} />
-      </div>
+    <header className="px-[1.125rem] py-[0.563rem] flex items-center shadow-md relative z-[1] min-w-[64rem]">
+      <Link href="/dashboard/posts" className="mr-auto w-[9.19rem] min-w-[9.19rem]">
+        <Image src={Logo} alt="jadetimes" />
+      </Link>
+      <ProfileButton user={user} />
     </header>
   );
 };

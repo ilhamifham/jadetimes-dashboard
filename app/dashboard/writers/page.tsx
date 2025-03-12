@@ -16,7 +16,7 @@ export default async function WritersPage() {
   const role = await getUserRole();
   const users = await getAllUsers();
 
-  if (role !== "Owner") {
+  if (role === "Guest Writer") {
     return <NoPermission />;
   }
 

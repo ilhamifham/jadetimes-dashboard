@@ -36,8 +36,8 @@ const ProfileButton = ({ user }: { user?: User }) => {
           <Image
             src={user.profileImage}
             alt="profile image"
-            width={72}
-            height={72}
+            width={45}
+            height={45}
             className="w-[1.875rem] h-[1.875rem] rounded-full object-cover object-top duration-300 group-hover:opacity-60"
           />
         ) : (

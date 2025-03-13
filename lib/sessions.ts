@@ -2,6 +2,7 @@
 
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
+import { redirect } from "next/navigation";
 
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
@@ -12,7 +13,7 @@ export async function encrypt(payload: { userId: number }) {
 }
 
 // decrypt
-export async function decrypt(session: string | undefined) {
+export async function decrypt(session: string | undefined = "") {
   if (session) {
     const { payload } = await jwtVerify(session, encodedKey, {
       algorithms: ["HS256"],
@@ -30,7 +31,7 @@ export async function createSession(userId: number) {
   cookieStore.set("session", session, {
     expires: new Date(Date.now() + 1 * 60 * 60 * 1000),
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
+    secure: true,
     sameSite: "lax",
     path: "/",
   });
@@ -42,7 +43,11 @@ export async function verifySession() {
   const session = cookieStore.get("session")?.value;
   const payload = await decrypt(session);
 
-  return payload;
+  if (payload) {
+    return payload;
+  } else {
+    redirect("/auth/login");
+  }
 }
 
 // delete session

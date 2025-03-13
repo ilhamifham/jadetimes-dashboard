@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifySession } from "@/lib/sessions";
+import { cookies } from "next/headers";
+import { decrypt } from "@/lib/sessions";
 
 const protectedRoutes = "/dashboard";
 const publicRoutes = "/auth";
@@ -8,7 +9,9 @@ export default async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
   const isProtectedRoute = path.startsWith(protectedRoutes);
   const isPublicRoute = path.startsWith(publicRoutes);
-  const payload = await verifySession();
+  const cookieStore = await cookies();
+  const session = cookieStore.get("session")?.value;
+  const payload = await decrypt(session);
 
   if (isProtectedRoute && !payload?.userId) {
     return NextResponse.redirect(new URL("/auth/login", request.nextUrl));

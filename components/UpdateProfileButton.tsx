@@ -20,7 +20,7 @@ type User =
 
 const UpdateProfileButton = ({ user }: { user: User }) => {
   const [dialog, openDialog, closeDialog] = useDialog();
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | undefined>();
   const [formData, setFormData] = useState({
     firstName: user?.firstName,
     lastName: user?.lastName,
@@ -32,26 +32,26 @@ const UpdateProfileButton = ({ user }: { user: User }) => {
   }
 
   function handleChange(event: ChangeEvent<HTMLInputElement>, name: string) {
-    if (name === "profileImage" && event.target.files) {
-      const file = event.target.files[0];
-      const MB = 100000;
+    if (name === "profileImage") {
+      if (event.target.files) {
+        const file = event.target.files[0];
+        const mb = 100000;
 
-      if (file.size > MB) {
-        setError("Image should be below 1MB");
-      }
+        if (file.size > mb) {
+          setError("Image should be below 1MB");
+        } else {
+          setError(undefined);
+          const reader = new FileReader();
 
-      if (file && file.size < MB) {
-        setError("");
-        const reader = new FileReader();
+          reader.onloadend = () => {
+            setFormData({
+              ...formData,
+              profileImage: reader.result as string,
+            });
+          };
 
-        reader.onloadend = () => {
-          setFormData({
-            ...formData,
-            profileImage: reader.result as string,
-          });
-        };
-
-        reader.readAsDataURL(file);
+          reader.readAsDataURL(file);
+        }
       }
     } else if (name === "firstName" || name === "lastName") {
       setFormData({
@@ -67,7 +67,7 @@ const UpdateProfileButton = ({ user }: { user: User }) => {
       lastName: user?.lastName,
       profileImage: user?.profileImage,
     });
-    setError("");
+    setError(undefined);
   }
 
   return (
@@ -151,21 +151,3 @@ const UpdateProfileButton = ({ user }: { user: User }) => {
 };
 
 export default UpdateProfileButton;
-
-// (event) => {
-//   if (event.target.files) {
-//     const file = event.target.files[0];
-//     const reader = new FileReader();
-
-//     reader.onloadend = () => {
-//       const base64Image = reader.result;
-
-//       setFormData({
-//         ...formData,
-//         profileImage: base64Image as string,
-//       });
-//     };
-
-//     reader.readAsDataURL(file);
-//   }
-// };

@@ -1,5 +1,6 @@
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
+// login
 export async function logIn(
   event: React.FormEvent,
   emailRef: React.RefObject<HTMLInputElement | null>,
@@ -96,6 +97,7 @@ export async function logIn(
   }
 }
 
+// logout
 export async function logOut(event: React.FormEvent, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>, router: AppRouterInstance) {
   event.preventDefault();
 
@@ -120,6 +122,7 @@ export async function logOut(event: React.FormEvent, setIsLoading: React.Dispatc
   }
 }
 
+// reset password
 export async function resetPassword(
   event: React.FormEvent,
   emailRef: React.RefObject<HTMLInputElement | null>,

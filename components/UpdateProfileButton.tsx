@@ -33,11 +33,12 @@ const UpdateProfileButton = ({ user }: { user: User }) => {
 
   function handleChange(event: ChangeEvent<HTMLInputElement>, name: string) {
     if (name === "profileImage") {
-      if (event.target.files) {
-        const file = event.target.files[0];
-        const mb = 100000;
+      const files = event.target.files;
 
-        if (file.size > mb) {
+      if (files && files.length > 0) {
+        const file = files[0];
+
+        if (file.size > 100000) {
           setError("Image should be below 1MB");
         } else {
           setError(undefined);

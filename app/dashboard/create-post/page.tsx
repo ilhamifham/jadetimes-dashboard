@@ -23,7 +23,6 @@ export default function CreatePostPage() {
       <div className="flex flew-row h-[calc(100vh-6.375rem)] overflow-hidden">
         <div className="w-[5.625rem] flex-none border-r border-r-neutral-200"></div>
         <div className="w-full overflow-auto">
-          <div className="h-[3.563rem] border-b border-b-neutral-200"></div>
           <Post />
         </div>
       </div>

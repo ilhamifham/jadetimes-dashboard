@@ -2,16 +2,27 @@
 
 import { Caudex } from "next/font/google";
 import Image from "next/image";
-import { ChangeEvent, KeyboardEvent, useState } from "react";
+import { useState } from "react";
 import usePopover from "@/hooks/usePopover";
 import { AlignLeft, AlignCenterHorizontally, Replace, Delete, Settings } from "@wix/wix-ui-icons-common";
+import { useEditor } from "@tiptap/react";
+import TipTapMenuBar from "@/components/TipTapMenuBar";
+import TiptapEditor from "@/components/TipTapEditor";
+import Document from "@tiptap/extension-document";
+import Paragraph from "@tiptap/extension-paragraph";
+import Text from "@tiptap/extension-text";
+import ListItem from "@tiptap/extension-list-item";
+import Placeholder from "@tiptap/extension-placeholder";
+import BulletList from "@tiptap/extension-bullet-list";
+import Bold from "@tiptap/extension-bold";
+import Link from "@tiptap/extension-link";
 
 const caudex = Caudex({
   weight: ["400"],
   subsets: ["latin"],
 });
 
-function handleEnterKey(event: KeyboardEvent<HTMLElement>) {
+function handleEnterKey(event: React.KeyboardEvent<HTMLElement>) {
   if (event.key === "Enter") {
     event.preventDefault();
   }
@@ -24,12 +35,39 @@ const Post = () => {
     imageAltText: "",
     imageSource: "",
     imageLeftAlign: false,
+    content: "",
   });
   const [popover, popoverRef, togglePopover] = usePopover();
+  const editor = useEditor({
+    editorProps: {
+      attributes: {
+        class: "focus:outline-none text-sm",
+      },
+    },
+    extensions: [
+      Document,
+      Paragraph,
+      Text,
+      ListItem,
+      Placeholder.configure({
+        emptyEditorClass: "before:content-['Start_writing...'] before:absolute before:text-neutral-400",
+      }),
+      BulletList.configure({
+        HTMLAttributes: {
+          class: "list-disc tiptap-list-item pl-4",
+        },
+      }),
+      Bold,
+      Link,
+    ],
+    immediatelyRender: false,
+  });
 
-  function handlePostTitle(event: ChangeEvent<HTMLTextAreaElement>) {
-    event.target.style.height = "3.1875rem";
-    event.target.style.height = `${(event.target.scrollHeight % 10) * 3.1875}rem`;
+  function handlePostTitle(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    const height = window.getComputedStyle(document.documentElement).fontSize;
+
+    event.target.style.height = "2.75rem";
+    event.target.style.height = `${event.target.scrollHeight / parseInt(height)}rem`;
 
     setPostData({
       ...postData,
@@ -37,9 +75,11 @@ const Post = () => {
     });
   }
 
-  function handlePostImage(event: ChangeEvent<HTMLInputElement>) {
-    if (event.target.files) {
-      const file = event.target.files[0];
+  function handlePostImage(event: React.ChangeEvent<HTMLInputElement>) {
+    const files = event.target.files;
+
+    if (files && files.length > 0) {
+      const file = files[0];
       const reader = new FileReader();
 
       reader.onloadend = () => {
@@ -61,21 +101,25 @@ const Post = () => {
   }
 
   return (
-    <div className="max-w-[46.25rem] mx-auto">
-      <textarea
-        name="post-title"
-        className={`h-[3.1875rem] mt-6 text-[2.125rem] resize-none w-full overflow-hidden focus:outline-none text-neutral-600 placeholder:text-neutral-400 ${caudex.className}`}
-        placeholder="Add Title"
-        onKeyDown={handleEnterKey}
-        onChange={handlePostTitle}
-        value={postData.title}
-      ></textarea>
-      <div className="h-[1px] w-full bg-black my-6"></div>
-      <div>
+    <>
+      <div className="h-[3.5625rem] border-b border-b-neutral-200 sticky top-0 bg-white z-[2] flex flex-row items-center justify-center p-[0.875rem]">
+        <TipTapMenuBar editor={editor} />
+      </div>
+      <div className="max-w-[46.25rem] mx-auto mb-6">
+        <textarea
+          name="post-title"
+          className={`h-11 leading-[normal] mt-6 text-[2.125rem] resize-none w-full overflow-hidden focus:outline-none text-neutral-600 placeholder:text-neutral-400 ${caudex.className}`}
+          placeholder="Add Title"
+          onKeyDown={handleEnterKey}
+          onChange={handlePostTitle}
+          value={postData.title}
+          maxLength={200}
+        ></textarea>
+        <div className="h-[1px] w-full bg-black my-6"></div>
         <div className={`${postData.imageLeftAlign ? "float-left mr-6 w-1/2" : "w-full"}`}>
           {postData.image ? (
             <div className="relative group">
-              <div className="bg-white border border-neutral-200 rounded-md p-1 flex flex-row shadow-xl absolute left-1/2 -translate-x-1/2 top-2">
+              <div className="bg-white border border-neutral-200 rounded-md p-1 flex flex-row items-center shadow-xl absolute left-1/2 -translate-x-1/2 top-2 z-[1]">
                 <input id="update-post-image" type="file" accept="images/*" className="peer sr-only" onChange={handlePostImage} />
                 <label
                   htmlFor="update-post-image"
@@ -83,7 +127,7 @@ const Post = () => {
                 >
                   <Replace className="w-6 h-6" />
                 </label>
-                <div className="w-[1px] bg-neutral-200 h-auto mx-1"></div>
+                <div className="w-[1px] bg-neutral-200 h-6 mx-1"></div>
                 <button
                   className="p-[0.125rem] rounded-sm duration-300 hover:bg-wix-100"
                   onClick={() =>
@@ -95,13 +139,13 @@ const Post = () => {
                 >
                   {postData.imageLeftAlign ? <AlignCenterHorizontally className="w-6 h-6" /> : <AlignLeft className="w-6 h-6" />}
                 </button>
-                <div className="w-[1px] bg-neutral-200 h-auto mx-1"></div>
+                <div className="w-[1px] bg-neutral-200 h-6 mx-1"></div>
                 <button className="p-[0.125rem] rounded-sm duration-300 hover:bg-wix-100" onClick={handleRemovePostImage}>
                   <Delete className="w-6 h-6" />
                 </button>
-                <div className="w-[1px] bg-neutral-200 h-auto mx-1"></div>
+                <div className="w-[1px] bg-neutral-200 h-6 mx-1"></div>
                 <div className="relative flex">
-                  <button className="p-[0.125rem] rounded-sm duration-300 hover:bg-wix-100" onClick={togglePopover}>
+                  <button className={`p-[0.125rem] rounded-sm duration-300 ${popover ? "bg-wix-100" : "hover:bg-wix-100"}`} onClick={togglePopover}>
                     <Settings className="w-6 h-6" />
                   </button>
                   {popover && (
@@ -110,14 +154,16 @@ const Post = () => {
                       className="absolute border border-neutral-200 shadow-xl -top-1 bg-white left-10 rounded-md px-4 py-2 w-72"
                     >
                       <div className="font-bold mb-2">Image</div>
-                      <Image
-                        src={postData.image}
-                        alt={postData.imageAltText}
-                        width={382}
-                        height={postData.imageLeftAlign ? 573 : 214.875}
-                        className={`${postData.imageLeftAlign ? "aspect-[2/3]" : "aspect-video"} object-cover object-top mb-2 rounded-md`}
-                        loading="lazy"
-                      />
+                      <div className="w-[15.875rem] h-[8.93rem] bg-wix-200 rounded-md mb-2 overflow-hidden">
+                        <Image
+                          src={postData.image}
+                          alt={postData.imageAltText}
+                          width={postData.imageLeftAlign ? 142.875 : 381}
+                          height={214.312}
+                          className={`${postData.imageLeftAlign ? "aspect-[2/3] h-full w-auto mx-auto" : "aspect-video"} object-cover object-top`}
+                          loading="lazy"
+                        />
+                      </div>
                       <label htmlFor="image-alt" className="text-sm mb-1">
                         Alt text
                       </label>
@@ -143,7 +189,7 @@ const Post = () => {
                 width={postData.imageLeftAlign ? 555 : 1110}
                 height={postData.imageLeftAlign ? 832.5 : 624.375}
                 className={`${postData.imageLeftAlign ? "aspect-[2/3]" : "aspect-video"} object-cover object-top`}
-                loading="lazy"
+                priority
               />
             </div>
           ) : (
@@ -176,33 +222,9 @@ const Post = () => {
             value={postData.imageSource}
           />
         </div>
-        <div className="text-sm">
-          <p>
-            Maybe we can live without libraries, people like you and me. Maybe. Sure, we're too old to change the world, but what about that kid,
-            sitting down, opening a book, right now, in a branch at the local library and finding drawings of pee-pees and wee-wees on the Cat in the
-            Hat and the Five Chinese Brothers? Doesn't HE deserve better? Look. If you think this is about overdue fines and missing books, you'd
-            better think again. This is about that kid's right to read a book without getting his mind warped! Or: maybe that turns you on, Seinfeld;
-            maybe that's how y'get your kicks. You and your good-time buddies.
-          </p>
-          <br />
-          <p>
-            Maybe we can live without libraries, people like you and me. Maybe. Sure, we're too old to change the world, but what about that kid,
-            sitting down, opening a book, right now, in a branch at the local library and finding drawings of pee-pees and wee-wees on the Cat in the
-            Hat and the Five Chinese Brothers? Doesn't HE deserve better? Look. If you think this is about overdue fines and missing books, you'd
-            better think again. This is about that kid's right to read a book without getting his mind warped! Or: maybe that turns you on, Seinfeld;
-            maybe that's how y'get your kicks. You and your good-time buddies.
-          </p>
-          <br />
-          <p>
-            Maybe we can live without libraries, people like you and me. Maybe. Sure, we're too old to change the world, but what about that kid,
-            sitting down, opening a book, right now, in a branch at the local library and finding drawings of pee-pees and wee-wees on the Cat in the
-            Hat and the Five Chinese Brothers? Doesn't HE deserve better? Look. If you think this is about overdue fines and missing books, you'd
-            better think again. This is about that kid's right to read a book without getting his mind warped! Or: maybe that turns you on, Seinfeld;
-            maybe that's how y'get your kicks. You and your good-time buddies.
-          </p>
-        </div>
+        <TiptapEditor editor={editor} />
       </div>
-    </div>
+    </>
   );
 };
 

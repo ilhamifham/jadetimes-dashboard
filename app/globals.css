@@ -29,6 +29,12 @@
 
 @tailwind utilities;
 
+@layer utilities {
+  .tiptap-list-item li p {
+    @apply inline;
+  }
+}
+
 @media screen and (min-height: 621px) {
   .custom-center {
     height: 100vh;

@@ -9,7 +9,7 @@ export default function DashboardLayout({
   return (
     <>
       <Header />
-      <main className="flex h-[calc(100vh-3rem)] overflow-hidden">
+      <main className="flex h-[calc(100vh-3.0625rem)] overflow-hidden">
         <Aside />
         {children}
       </main>

@@ -48,7 +48,7 @@ const ProfileButton = ({ user }: { user?: User }) => {
       {popover && (
         <div
           ref={popoverRef as React.RefObject<HTMLDivElement>}
-          className="absolute bg-white w-80 top-12 right-0 shadow-lg border border-wix-200 rounded-lg"
+          className="absolute z-[3] bg-white w-80 top-12 right-0 shadow-lg border border-wix-200 rounded-lg"
         >
           <div className="flex items-center gap-3 border-b border-b-wix-200 p-4">
             {user?.profileImage ? (

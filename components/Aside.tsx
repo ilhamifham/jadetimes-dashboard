@@ -32,7 +32,7 @@ const Aside = () => {
       className={`bg-[#131720] duration-300 ${url === "create-post" ? "w-0 overflow-hidden invisible" : "flex-none w-[3.375rem] min-[1230px]:w-64"}`}
     >
       <nav>
-        <ul className="font-medium text-sm mt-1 text-white mx-1">
+        <ul className="font-medium text-sm pt-1 text-white px-1">
           {navigations.map((navigation, index) => (
             <li key={index} className="relative group mb-1">
               <Link

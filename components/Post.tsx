@@ -2,9 +2,11 @@
 
 import { Caudex } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import usePopover from "@/hooks/usePopover";
-import { AlignLeft, AlignCenterHorizontally, Replace, Delete, Settings, ArrowLeft } from "@wix/wix-ui-icons-common";
+import { AlignLeft, AlignCenterHorizontally, Replace, Delete, Settings, ArrowLeft, X } from "@wix/wix-ui-icons-common";
 import { useEditor } from "@tiptap/react";
 import GoBackButton from "@/components/GoBackButton";
 import Button from "@/components/Button";
@@ -17,7 +19,7 @@ import ListItem from "@tiptap/extension-list-item";
 import Placeholder from "@tiptap/extension-placeholder";
 import BulletList from "@tiptap/extension-bullet-list";
 import Bold from "@tiptap/extension-bold";
-import Link from "@tiptap/extension-link";
+// import Link from "@tiptap/extension-link";
 
 const caudex = Caudex({
   weight: ["400"],
@@ -31,6 +33,10 @@ function handleEnterKey(event: React.KeyboardEvent<HTMLElement>) {
 }
 
 const Post = () => {
+  const [popover, popoverRef, togglePopover] = usePopover();
+  // const [isSideMenu, setSideMenu] = useState(false);
+  const searchParams = useSearchParams();
+  const search = searchParams.get("side-menu");
   const [postData, setPostData] = useState({
     title: "",
     image: "",
@@ -39,7 +45,6 @@ const Post = () => {
     imageLeftAlign: false,
     content: "",
   });
-  const [popover, popoverRef, togglePopover] = usePopover();
   const editor = useEditor({
     editorProps: {
       attributes: {
@@ -60,7 +65,7 @@ const Post = () => {
         },
       }),
       Bold,
-      Link,
+      // Link,
     ],
     immediatelyRender: false,
   });
@@ -118,9 +123,31 @@ const Post = () => {
         </div>
       </div>
       <div className="flex flew-row h-[calc(100vh-6.375rem)] overflow-hidden">
-        <div className="w-[5.625rem] flex-none border-r border-r-neutral-200"></div>
+        <div className="w-[5.625rem] flex-none border-r border-r-neutral-200 p-3 px-5">
+          <Link
+            href="?side-menu=settings"
+            className={`text-xs flex flex-col items-center gap-1 duration-300 ${search === "settings" ? "text-wix-300" : "text-black"}`}
+          >
+            <div
+              className={`p-[0.313rem] border rounded-full duration-300 ${
+                search === "settings" ? "text-white bg-wix-300 border-wix-300" : "text-black border-neutral-200"
+              }`}
+            >
+              <Settings className="w-[1.125rem] h-[1.125rem]" />
+            </div>
+            <div>Settings</div>
+          </Link>
+        </div>
+        <div className={`flex-none duration-300 text-nowrap ${search === "settings" ? "w-80 border-r border-r-neutral-200" : "w-0 overflow-hidden"}`}>
+          <div className="px-6 py-4 flex flex-row items-center justify-between">
+            <span className="text-lg font-medium">Post settings</span>{" "}
+            <GoBackButton className="p-0.5 -mr-2 text-wix-300">
+              <X />
+            </GoBackButton>
+          </div>
+        </div>
         <div className="w-full overflow-auto">
-          <div className="h-[3.5625rem] border-b border-b-neutral-200 sticky top-0 left-0 bg-white z-[2] flex flex-row items-center justify-center p-[0.875rem]">
+          <div className="border-b border-b-neutral-200 sticky top-0 left-0 bg-white z-[2] flex flex-row items-center justify-center py-[0.844rem] px-[1.125rem]">
             <TipTapMenuBar editor={editor} />
           </div>
           <div className="px-8 w-[50.25rem] mx-auto mb-6">
@@ -137,7 +164,7 @@ const Post = () => {
             <div className={`${postData.imageLeftAlign ? "float-left mr-6 w-1/2" : "w-full"}`}>
               {postData.image ? (
                 <div className="relative group">
-                  <div className="bg-white border border-neutral-200 rounded-md p-1 flex flex-row items-center shadow-xl absolute left-1/2 -translate-x-1/2 top-2 z-[1]">
+                  <div className="bg-white border border-wix-200 rounded-md p-1 flex flex-row items-center shadow-xl absolute left-1/2 -translate-x-1/2 top-2 z-[1]">
                     <input id="update-post-image" type="file" accept="images/*" className="peer sr-only" onChange={handlePostImage} />
                     <label
                       htmlFor="update-post-image"
@@ -172,7 +199,7 @@ const Post = () => {
                       {popover && (
                         <div
                           ref={popoverRef as React.RefObject<HTMLDivElement>}
-                          className="absolute border border-neutral-200 shadow-xl -top-1 bg-white left-10 rounded-md px-4 py-2 w-72"
+                          className="absolute border border-wix-200 shadow-xl -top-1 bg-white left-10 rounded-md px-4 py-2 w-72"
                         >
                           <div className="font-bold mb-2">Image</div>
                           <div className="w-[15.875rem] h-[8.93rem] bg-wix-200 rounded-md mb-2 overflow-hidden">
@@ -185,12 +212,12 @@ const Post = () => {
                               loading="lazy"
                             />
                           </div>
-                          <label htmlFor="image-alt" className="text-sm mb-1">
+                          <label htmlFor="image-alt" className="block text-sm mb-1">
                             Alt text
                           </label>
                           <textarea
                             id="image-alt"
-                            className="block border border-wix-200 rounded-md w-full resize-none mb-2 px-2"
+                            className="block border border-wix-200 rounded-md w-full resize-none mb-2 px-2 py-1 text-sm h-16"
                             onKeyDown={handleEnterKey}
                             onChange={(event) =>
                               setPostData({
@@ -199,6 +226,7 @@ const Post = () => {
                               })
                             }
                             value={postData.imageAltText}
+                            placeholder="Describe the image"
                           ></textarea>
                         </div>
                       )}

@@ -19,7 +19,6 @@ import ListItem from "@tiptap/extension-list-item";
 import Placeholder from "@tiptap/extension-placeholder";
 import BulletList from "@tiptap/extension-bullet-list";
 import Bold from "@tiptap/extension-bold";
-// import Link from "@tiptap/extension-link";
 
 const caudex = Caudex({
   weight: ["400"],
@@ -34,9 +33,9 @@ function handleEnterKey(event: React.KeyboardEvent<HTMLElement>) {
 
 const Post = () => {
   const [popover, popoverRef, togglePopover] = usePopover();
-  // const [isSideMenu, setSideMenu] = useState(false);
   const searchParams = useSearchParams();
   const search = searchParams.get("side-menu");
+  const [panel, setPanel] = useState("general");
   const [postData, setPostData] = useState({
     title: "",
     image: "",
@@ -65,7 +64,6 @@ const Post = () => {
         },
       }),
       Bold,
-      // Link,
     ],
     immediatelyRender: false,
   });
@@ -124,27 +122,59 @@ const Post = () => {
       </div>
       <div className="flex flew-row h-[calc(100vh-6.375rem)] overflow-hidden">
         <div className="w-[5.625rem] flex-none border-r border-r-neutral-200 p-3 px-5">
-          <Link
-            href="?side-menu=settings"
-            className={`text-xs flex flex-col items-center gap-1 duration-300 ${search === "settings" ? "text-wix-300" : "text-black"}`}
-          >
+          <Link href="?side-menu=settings" className="text-xs flex flex-col items-center gap-1 duration-300 group">
             <div
-              className={`p-[0.313rem] border rounded-full duration-300 ${
-                search === "settings" ? "text-white bg-wix-300 border-wix-300" : "text-black border-neutral-200"
+              className={`p-[0.313rem] border border-neutral-200 rounded-full duration-300 ${
+                search === "settings"
+                  ? "text-white bg-wix-300 border-wix-300"
+                  : "group-hover:text-wix-300 group-hover:bg-wix-200 group-hover:border-wix-200"
               }`}
             >
               <Settings className="w-[1.125rem] h-[1.125rem]" />
             </div>
-            <div>Settings</div>
+            <div className={`duration-300 ${search === "settings" ? "text-wix-300" : "group-hover:text-wix-300"}`}>Settings</div>
           </Link>
         </div>
-        <div className={`flex-none duration-300 text-nowrap ${search === "settings" ? "w-80 border-r border-r-neutral-200" : "w-0 overflow-hidden"}`}>
-          <div className="px-6 py-4 flex flex-row items-center justify-between">
-            <span className="text-lg font-medium">Post settings</span>{" "}
-            <GoBackButton className="p-0.5 -mr-2 text-wix-300">
-              <X />
-            </GoBackButton>
+        <div
+          className={`flex-none duration-300 text-nowrap ${
+            search === "settings" ? "w-96 border-r border-r-neutral-200 overflow-y-auto" : "w-0 overflow-hidden invisible"
+          }`}
+        >
+          <div className="sticky top-0 bg-white">
+            <div className="px-6 py-4 flex flex-row items-center justify-between">
+              <span className="text-lg font-medium">Post settings</span>{" "}
+              <GoBackButton className="p-0.5 -mr-2 text-wix-300">
+                <X />
+              </GoBackButton>
+            </div>
+            <div className="border-b border-neutral-200 flex flex-row text-sm">
+              <button
+                className={`flex-1 border-b-[3px] px-3 pt-3 pb-[0.5625rem] duration-300 ${
+                  panel === "general" ? "text-wix-300 border-b-wix-300" : "hover:text-wix-300 border-b-transparent"
+                }`}
+                onClick={() => setPanel("general")}
+              >
+                General
+              </button>
+              <button
+                className={`flex-1 border-b-[3px] px-3 pt-3 pb-[0.5625rem] duration-300 ${
+                  panel === "categories" ? "text-wix-300 border-b-wix-300" : "hover:text-wix-300 border-b-transparent"
+                }`}
+                onClick={() => setPanel("categories")}
+              >
+                Categories
+              </button>
+              <button
+                className={`flex-1 border-b-[3px] px-3 pt-3 pb-[0.5625rem] duration-300 ${
+                  panel === "tags" ? "text-wix-300 border-b-wix-300" : "hover:text-wix-300 border-b-transparent"
+                }`}
+                onClick={() => setPanel("tags")}
+              >
+                Tags
+              </button>
+            </div>
           </div>
+          <div className="py-4 px-6">{panel === "categories" ? "Categories" : panel === "tags" ? "Tags" : "General"}</div>
         </div>
         <div className="w-full overflow-auto">
           <div className="border-b border-b-neutral-200 sticky top-0 left-0 bg-white z-[2] flex flex-row items-center justify-center py-[0.844rem] px-[1.125rem]">
@@ -164,7 +194,7 @@ const Post = () => {
             <div className={`${postData.imageLeftAlign ? "float-left mr-6 w-1/2" : "w-full"}`}>
               {postData.image ? (
                 <div className="relative group">
-                  <div className="bg-white border border-wix-200 rounded-md p-1 flex flex-row items-center shadow-xl absolute left-1/2 -translate-x-1/2 top-2 z-[1]">
+                  <div className="bg-white border border-wix-200 rounded-md p-1 flex flex-row items-center shadow-xl absolute left-1/2 -translate-x-1/2 top-2 z-[1] w-[9.25rem]">
                     <input id="update-post-image" type="file" accept="images/*" className="peer sr-only" onChange={handlePostImage} />
                     <label
                       htmlFor="update-post-image"

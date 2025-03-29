@@ -13,7 +13,6 @@
     "@tiptap/extension-bold": "^2.11.5",
     "@tiptap/extension-bullet-list": "^2.11.5",
     "@tiptap/extension-document": "^2.11.5",
-    "@tiptap/extension-link": "^2.11.5",
     "@tiptap/extension-list-item": "^2.11.5",
     "@tiptap/extension-paragraph": "^2.11.5",
     "@tiptap/extension-placeholder": "^2.11.5",
@@ -22,7 +21,7 @@
     "@tiptap/react": "^2.11.5",
     "@wix/wix-ui-icons-common": "^3.63.0",
     "jose": "^5.10.0",
-    "next": "15.1.5",
+    "next": "^15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

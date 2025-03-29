@@ -1,5 +1,5 @@
 import { Editor } from "@tiptap/react";
-import { Bold, BulletList, LinkBold } from "@wix/wix-ui-icons-common";
+import { Bold, BulletList } from "@wix/wix-ui-icons-common";
 import usePopover from "@/hooks/usePopover";
 
 const TipTapMenuBar = ({ editor }: { editor: Editor | null }) => {
@@ -30,7 +30,7 @@ const TipTapMenuBar = ({ editor }: { editor: Editor | null }) => {
       >
         <BulletList className="w-6 h-6" />
       </button>
-      <div className="w-[1px] bg-neutral-200 h-6 mx-1"></div>
+      {/* <div className="w-[1px] bg-neutral-200 h-6 mx-1"></div>
       <div className="relative flex">
         <button
           onClick={() => editor.commands.toggleLink({ href: "https://example.com" })}
@@ -54,7 +54,7 @@ const TipTapMenuBar = ({ editor }: { editor: Editor | null }) => {
             />
           </div>
         )}
-      </div>
+      </div> */}
     </>
   );
 };

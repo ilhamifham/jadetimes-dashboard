@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Newspaper, Category, Tag, Groups } from "@wix/wix-ui-icons-common";
+import { Newspaper, Category, Tag, Groups, Settings } from "@wix/wix-ui-icons-common";
 
 const navigations = [
   {
@@ -20,6 +20,10 @@ const navigations = [
   {
     slug: "writers",
     icon: Groups,
+  },
+  {
+    slug: "settings",
+    icon: Settings,
   },
 ];
 
@@ -42,9 +46,12 @@ const Aside = () => {
                 }`}
               >
                 <navigation.icon className="w-6 h-6" />
-                <span className="hidden min-[1230px]:block">{navigation.slug.charAt(0).toUpperCase() + navigation.slug.slice(1)}</span>
+                <span className="sr-only min-[1230px]:not-sr-only">{navigation.slug.charAt(0).toUpperCase() + navigation.slug.slice(1)}</span>
               </Link>
-              <span className="absolute top-1/2 -translate-y-1/2 text-xs bg-[#131720] px-3 py-2 rounded-md left-14 z-50 hidden group-hover:block duration-300 min-[1230px]:group-hover:hidden">
+              <span
+                className="absolute top-1/2 -translate-y-1/2 text-xs bg-[#131720] px-3 py-2 rounded-md left-14 z-50 hidden group-hover:block duration-300 min-[1230px]:group-hover:hidden"
+                aria-hidden
+              >
                 {navigation.slug.charAt(0).toUpperCase() + navigation.slug.slice(1)}
               </span>
             </li>

@@ -34,6 +34,7 @@ const LogInForm = () => {
         <FormInput type={isVisible ? "text" : "password"} name="password" placeholder="Password" error={error?.password} ref={passwordRef} />
         <button type="button" className="absolute py-[0.125rem] p-1 bottom-[0.375rem] right-0 text-neutral-500" onClick={toggleVisible}>
           {isVisible ? <Hidden className="w-6 h-6" /> : <Visible className="w-6 h-6" />}
+          <span className="sr-only">{isVisible ? "password hidden" : "password visible"}</span>
         </button>
       </div>
       {error?.password && <p className="text-sm text-red-600">{error.password}</p>}

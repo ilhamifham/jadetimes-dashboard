@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${madefor.variable} antialiased`}>
-      <body>{children}</body>
+      <body className="min-w-80">{children}</body>
     </html>
   );
 }

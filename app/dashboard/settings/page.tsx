@@ -9,12 +9,16 @@ import PageTableH2 from "@/components/PageTableH2";
 import AvatarIcon from "@/components/AvatarIcon";
 import Button from "@/components/Button";
 import Label from "@/components/Label";
-import { getUserDetails } from "@/lib/data";
 import UpdateProfileButton from "@/components/UpdateProfileButton";
 
-export default async function SettingsPage() {
-  const user = await getUserDetails();
+const user = {
+  profileImage: "",
+  firstName: "Ilham",
+  lastName: "Ifham",
+  email: "ilham@email.com",
+};
 
+export default async function SettingsPage() {
   return (
     <PageSection>
       <PageHeader>
@@ -38,19 +42,13 @@ export default async function SettingsPage() {
             <div className="flex-none">
               <Label className="text-center" text="Image" />
               {user?.profileImage ? (
-                <Image
-                  src={user.profileImage}
-                  width={135}
-                  height={135}
-                  alt=""
-                  className="w-[5.625rem] h-[5.625rem] mt-2 rounded-full object-cover object-top"
-                />
+                <Image src={user.profileImage} width={135} height={135} alt="" className="w-[5.625rem] h-[5.625rem] mt-2 rounded-full object-cover object-top" />
               ) : (
                 <AvatarIcon className="w-[5.625rem] h-[5.625rem] mt-2" />
               )}
             </div>
           </div>
-          <UpdateProfileButton user={user} />
+          <UpdateProfileButton />
         </div>
         <PageTableHeader>
           <PageTableH2 text="Login info" />

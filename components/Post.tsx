@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import usePopover from "@/hooks/usePopover";
-import { AlignLeft, AlignCenterHorizontally, Replace, Delete, Settings, ArrowLeft, X } from "@wix/wix-ui-icons-common";
+import { Replace, Delete, Settings, ArrowLeft, X } from "@wix/wix-ui-icons-common";
 import { useEditor } from "@tiptap/react";
 import GoBackButton from "@/components/GoBackButton";
 import Button from "@/components/Button";
@@ -41,7 +41,6 @@ const Post = () => {
     image: "",
     imageAltText: "",
     imageSource: "",
-    imageLeftAlign: false,
     content: "",
   });
   const editor = useEditor({
@@ -125,9 +124,7 @@ const Post = () => {
           <Link href="?side-menu=settings" className="text-xs flex flex-col items-center gap-1 duration-300 group">
             <div
               className={`p-[0.313rem] border border-neutral-200 rounded-full duration-300 ${
-                search === "settings"
-                  ? "text-white bg-wix-300 border-wix-300"
-                  : "group-hover:text-wix-300 group-hover:bg-wix-200 group-hover:border-wix-200"
+                search === "settings" ? "text-white bg-wix-300 border-wix-300" : "group-hover:text-wix-300 group-hover:bg-wix-200 group-hover:border-wix-200"
               }`}
             >
               <Settings className="w-[1.125rem] h-[1.125rem]" />
@@ -135,11 +132,7 @@ const Post = () => {
             <div className={`duration-300 ${search === "settings" ? "text-wix-300" : "group-hover:text-wix-300"}`}>Settings</div>
           </Link>
         </div>
-        <div
-          className={`flex-none duration-300 text-nowrap ${
-            search === "settings" ? "w-96 border-r border-r-neutral-200 overflow-y-auto" : "w-0 overflow-hidden invisible"
-          }`}
-        >
+        <div className={`flex-none duration-300 text-nowrap ${search === "settings" ? "w-96 border-r border-r-neutral-200 overflow-y-auto" : "w-0 overflow-hidden invisible"}`}>
           <div className="sticky top-0 bg-white">
             <div className="px-6 py-4 flex flex-row items-center justify-between">
               <span className="text-lg font-medium">Post settings</span>{" "}
@@ -149,25 +142,19 @@ const Post = () => {
             </div>
             <div className="border-b border-neutral-200 flex flex-row text-sm">
               <button
-                className={`flex-1 border-b-[3px] px-3 pt-3 pb-[0.5625rem] duration-300 ${
-                  panel === "general" ? "text-wix-300 border-b-wix-300" : "hover:text-wix-300 border-b-transparent"
-                }`}
+                className={`flex-1 border-b-[3px] px-3 pt-3 pb-[0.5625rem] duration-300 ${panel === "general" ? "text-wix-300 border-b-wix-300" : "hover:text-wix-300 border-b-transparent"}`}
                 onClick={() => setPanel("general")}
               >
                 General
               </button>
               <button
-                className={`flex-1 border-b-[3px] px-3 pt-3 pb-[0.5625rem] duration-300 ${
-                  panel === "categories" ? "text-wix-300 border-b-wix-300" : "hover:text-wix-300 border-b-transparent"
-                }`}
+                className={`flex-1 border-b-[3px] px-3 pt-3 pb-[0.5625rem] duration-300 ${panel === "categories" ? "text-wix-300 border-b-wix-300" : "hover:text-wix-300 border-b-transparent"}`}
                 onClick={() => setPanel("categories")}
               >
                 Categories
               </button>
               <button
-                className={`flex-1 border-b-[3px] px-3 pt-3 pb-[0.5625rem] duration-300 ${
-                  panel === "tags" ? "text-wix-300 border-b-wix-300" : "hover:text-wix-300 border-b-transparent"
-                }`}
+                className={`flex-1 border-b-[3px] px-3 pt-3 pb-[0.5625rem] duration-300 ${panel === "tags" ? "text-wix-300 border-b-wix-300" : "hover:text-wix-300 border-b-transparent"}`}
                 onClick={() => setPanel("tags")}
               >
                 Tags
@@ -191,10 +178,10 @@ const Post = () => {
               maxLength={200}
             ></textarea>
             <div className="h-[1px] w-full bg-black my-6"></div>
-            <div className={`${postData.imageLeftAlign ? "float-left mr-6 w-1/2" : "w-full"}`}>
+            <div>
               {postData.image ? (
                 <div className="relative group">
-                  <div className="bg-white border border-wix-200 rounded-md p-1 flex flex-row items-center shadow-xl absolute left-1/2 -translate-x-1/2 top-2 z-[1] w-[9.25rem]">
+                  <div className="bg-white border border-wix-200 rounded-md p-1 flex flex-row items-center shadow-xl absolute left-1/2 -translate-x-1/2 top-2 z-[1]">
                     <input id="update-post-image" type="file" accept="images/*" className="peer sr-only" onChange={handlePostImage} />
                     <label
                       htmlFor="update-post-image"
@@ -203,44 +190,19 @@ const Post = () => {
                       <Replace className="w-6 h-6" />
                     </label>
                     <div className="w-[1px] bg-neutral-200 h-6 mx-1"></div>
-                    <button
-                      className="p-[0.125rem] rounded-sm duration-300 hover:bg-wix-100"
-                      onClick={() =>
-                        setPostData({
-                          ...postData,
-                          imageLeftAlign: !postData.imageLeftAlign,
-                        })
-                      }
-                    >
-                      {postData.imageLeftAlign ? <AlignCenterHorizontally className="w-6 h-6" /> : <AlignLeft className="w-6 h-6" />}
-                    </button>
-                    <div className="w-[1px] bg-neutral-200 h-6 mx-1"></div>
                     <button className="p-[0.125rem] rounded-sm duration-300 hover:bg-wix-100" onClick={handleRemovePostImage}>
                       <Delete className="w-6 h-6" />
                     </button>
                     <div className="w-[1px] bg-neutral-200 h-6 mx-1"></div>
                     <div className="relative flex">
-                      <button
-                        className={`p-[0.125rem] rounded-sm duration-300 ${popover ? "bg-wix-100" : "hover:bg-wix-100"}`}
-                        onClick={togglePopover}
-                      >
+                      <button className={`p-[0.125rem] rounded-sm duration-300 ${popover ? "bg-wix-100" : "hover:bg-wix-100"}`} onClick={togglePopover}>
                         <Settings className="w-6 h-6" />
                       </button>
                       {popover && (
-                        <div
-                          ref={popoverRef as React.RefObject<HTMLDivElement>}
-                          className="absolute border border-wix-200 shadow-xl -top-1 bg-white left-10 rounded-md px-4 py-2 w-72"
-                        >
+                        <div ref={popoverRef as React.RefObject<HTMLDivElement>} className="absolute border border-wix-200 shadow-xl -top-1 bg-white left-10 rounded-md px-4 py-2 w-72">
                           <div className="font-bold mb-2">Image</div>
                           <div className="w-[15.875rem] h-[8.93rem] bg-wix-200 rounded-md mb-2 overflow-hidden">
-                            <Image
-                              src={postData.image}
-                              alt={postData.imageAltText}
-                              width={postData.imageLeftAlign ? 142.875 : 381}
-                              height={214.312}
-                              className={`${postData.imageLeftAlign ? "aspect-[2/3] h-full w-auto mx-auto" : "aspect-video"} object-cover object-top`}
-                              loading="lazy"
-                            />
+                            <Image src={postData.image} alt={postData.imageAltText} width={254} height={143} className="aspect-video object-cover object-top" loading="lazy" />
                           </div>
                           <label htmlFor="image-alt" className="block text-sm mb-1">
                             Alt text
@@ -262,23 +224,14 @@ const Post = () => {
                       )}
                     </div>
                   </div>
-                  <Image
-                    src={postData.image}
-                    alt={postData.imageAltText}
-                    width={postData.imageLeftAlign ? 555 : 1110}
-                    height={postData.imageLeftAlign ? 832.5 : 624.375}
-                    className={`${postData.imageLeftAlign ? "aspect-[2/3]" : "aspect-video"} object-cover object-top`}
-                    priority
-                  />
+                  <Image src={postData.image} width={740} height={416} alt={postData.imageAltText} className="aspect-video object-cover object-top" />
                 </div>
               ) : (
                 <>
                   <input id="post-image" type="file" accept="images/*" className="peer sr-only" onChange={handlePostImage} />
                   <label
                     htmlFor="post-image"
-                    className={`${
-                      postData.imageLeftAlign ? "aspect-[2/3]" : "aspect-video"
-                    } bg-wix-100 block p-4 cursor-pointer duration-300 hover:bg-wix-200 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-1 peer-focus-visible:duration-0 peer-focus-visible:outline-[#1e90ff]`}
+                    className="aspect-video bg-wix-100 block p-4 cursor-pointer duration-300 hover:bg-wix-200 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-1 peer-focus-visible:duration-0 peer-focus-visible:outline-[#1e90ff]"
                   >
                     <div className="border border-wix-300 border-dashed h-full flex items-center justify-center">
                       <div className="text-wix-300 text-xl">Add photo</div>
@@ -288,9 +241,7 @@ const Post = () => {
               )}
               <input
                 type="text"
-                className={`${
-                  postData.imageLeftAlign ? "mt-4" : "my-4"
-                } focus:outline-none w-full text-center text-[0.8125rem] text-neutral-600 placeholder:text-neutral-400`}
+                className="my-4 focus:outline-none w-full text-center text-[0.8125rem] text-neutral-600 placeholder:text-neutral-400"
                 placeholder="Add image source"
                 onChange={(event) =>
                   setPostData({

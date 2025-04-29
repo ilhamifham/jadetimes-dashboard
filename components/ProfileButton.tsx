@@ -10,17 +10,14 @@ import AvatarIcon from "@/components/AvatarIcon";
 import Button from "@/components/Button";
 import { Settings, ChevronDownLargeSmall } from "@wix/wix-ui-icons-common";
 
-type User =
-  | {
-      email: string;
-      firstName: string;
-      lastName: string;
-      profileImage: string;
-    }
-  | null
-  | undefined;
+const user = {
+  profileImage: "",
+  firstName: "Ilham",
+  lastName: "Ifham",
+  email: "ilham@email.com",
+};
 
-const ProfileButton = ({ user }: { user?: User }) => {
+const ProfileButton = () => {
   const [popover, popoverRef, togglePopover] = usePopover();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
@@ -33,23 +30,15 @@ const ProfileButton = ({ user }: { user?: User }) => {
     <div className="relative h-[1.875rem]">
       <button onClick={togglePopover} className="rounded-full flex flex-row items-center gap-1 group">
         {user?.profileImage ? (
-          <Image
-            src={user.profileImage}
-            alt="profile image"
-            width={45}
-            height={45}
-            className="w-[1.875rem] h-[1.875rem] rounded-full object-cover object-top duration-300 group-hover:opacity-60"
-          />
+          <Image src={user.profileImage} alt="profile image" width={45} height={45} className="w-[1.875rem] h-[1.875rem] rounded-full object-cover object-top duration-300 group-hover:opacity-60" />
         ) : (
           <AvatarIcon className="w-[1.875rem]" />
         )}
         <ChevronDownLargeSmall size={16} className="text-wix-300 duration-300 group-hover:opacity-60 -mr-[0.125rem] w-4 h-4" />
+        <span className="sr-only">profile</span>
       </button>
       {popover && (
-        <div
-          ref={popoverRef as React.RefObject<HTMLDivElement>}
-          className="absolute z-[3] bg-white w-80 top-12 right-0 shadow-lg border border-wix-200 rounded-lg"
-        >
+        <div ref={popoverRef as React.RefObject<HTMLDivElement>} className="absolute z-[3] bg-white w-80 top-12 right-0 shadow-lg border border-wix-200 rounded-lg">
           <div className="flex items-center gap-3 border-b border-b-wix-200 p-4">
             {user?.profileImage ? (
               <Image src={user.profileImage} alt="profile image" width={72} height={72} className="w-12 h-12 rounded-full object-cover object-top" />

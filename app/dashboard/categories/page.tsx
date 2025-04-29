@@ -1,4 +1,3 @@
-import { getUserRole } from "@/lib/data";
 import PageSection from "@/components/PageSection";
 import PageHeader from "@/components/PageHeader";
 import PageH1 from "@/components/PageH1";
@@ -7,16 +6,9 @@ import Button from "@/components/Button";
 import PageTable from "@/components/PageTable";
 import PageTableHeader from "@/components/PageTableHeader";
 import SearchBar from "@/components/Search";
-import NoPermission from "@/components/NoPermission";
 import { Add } from "@wix/wix-ui-icons-common";
 
 export default async function CategoriesPage() {
-  const role = await getUserRole();
-
-  if (role === "Guest Writer") {
-    return <NoPermission />;
-  }
-
   return (
     <PageSection>
       <PageHeader>

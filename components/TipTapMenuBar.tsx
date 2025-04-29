@@ -1,10 +1,7 @@
 import { Editor } from "@tiptap/react";
 import { Bold, BulletList } from "@wix/wix-ui-icons-common";
-import usePopover from "@/hooks/usePopover";
 
 const TipTapMenuBar = ({ editor }: { editor: Editor | null }) => {
-  const [popover, popoverRef, togglePopover] = usePopover();
-
   if (!editor) {
     return null;
   }
@@ -13,22 +10,20 @@ const TipTapMenuBar = ({ editor }: { editor: Editor | null }) => {
     <>
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
-        className={`p-[0.125rem] rounded-sm duration-300 ${
-          editor.isActive("bold") ? "bg-wix-100" : editor.isEmpty ? "opacity-30" : "hover:bg-wix-100"
-        }`}
+        className={`p-[0.125rem] rounded-sm duration-300 ${editor.isActive("bold") ? "bg-wix-100" : editor.isEmpty ? "opacity-30" : "hover:bg-wix-100"}`}
         disabled={editor.isEmpty}
       >
         <Bold className="w-6 h-6" />
+        <span className="sr-only">bold</span>
       </button>
       <div className="w-[1px] bg-neutral-200 h-6 mx-1"></div>
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={`p-[0.125rem] rounded-sm duration-300 ${
-          editor.isActive("bulletList") ? "bg-wix-100" : editor.isEmpty ? "opacity-30" : "hover:bg-wix-100"
-        }`}
+        className={`p-[0.125rem] rounded-sm duration-300 ${editor.isActive("bulletList") ? "bg-wix-100" : editor.isEmpty ? "opacity-30" : "hover:bg-wix-100"}`}
         disabled={editor.isEmpty}
       >
         <BulletList className="w-6 h-6" />
+        <span className="sr-only">bulletlist</span>
       </button>
       {/* <div className="w-[1px] bg-neutral-200 h-6 mx-1"></div>
       <div className="relative flex">

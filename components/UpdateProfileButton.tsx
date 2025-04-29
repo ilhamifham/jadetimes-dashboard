@@ -8,17 +8,14 @@ import AvatarIcon from "@/components/AvatarIcon";
 import { PhotoCamera, X } from "@wix/wix-ui-icons-common";
 import useDialog from "@/hooks/useDialog";
 
-type User =
-  | {
-      id: number;
-      firstName: string;
-      lastName: string;
-      profileImage: string;
-    }
-  | null
-  | undefined;
+const user = {
+  profileImage: "",
+  firstName: "Ilham",
+  lastName: "Ifham",
+  email: "ilham@email.com",
+};
 
-const UpdateProfileButton = ({ user }: { user: User }) => {
+const UpdateProfileButton = () => {
   const [dialog, openDialog, closeDialog] = useDialog();
   const [error, setError] = useState<string | undefined>();
   const [formData, setFormData] = useState({
@@ -85,25 +82,12 @@ const UpdateProfileButton = ({ user }: { user: User }) => {
               <div className="mb-6 flex items-center justify-center">
                 <div className="relative">
                   {formData.profileImage ? (
-                    <Image
-                      src={formData.profileImage}
-                      alt=""
-                      width={135}
-                      height={135}
-                      className="rounded-full w-[5.625rem] h-[5.625rem] object-cover object-top"
-                    />
+                    <Image src={formData.profileImage} alt="" width={135} height={135} className="rounded-full w-[5.625rem] h-[5.625rem] object-cover object-top" />
                   ) : (
                     <AvatarIcon className="w-[5.625rem] h-[5.625rem]" />
                   )}
                   <>
-                    <input
-                      type="file"
-                      name="profileImage"
-                      accept="image/*"
-                      id="profileImage"
-                      className="sr-only peer"
-                      onChange={(event) => handleChange(event, "profileImage")}
-                    />
+                    <input type="file" name="profileImage" accept="image/*" id="profileImage" className="sr-only peer" onChange={(event) => handleChange(event, "profileImage")} />
                     <label
                       htmlFor="profileImage"
                       className="rounded-full absolute right-0 bottom-0 border border-wix-200 text-wix-300 bg-white cursor-pointer shadow-lg duration-300 hover:bg-wix-300 hover:text-white hover:border-wix-300 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-1 peer-focus-visible:duration-0 peer-focus-visible:outline-[#1e90ff]"
@@ -115,21 +99,9 @@ const UpdateProfileButton = ({ user }: { user: User }) => {
               </div>
               {error && <p className="text-red-600 text-sm text-center mb-6">{error}</p>}
               <Label text="Update your first name" />
-              <input
-                type="text"
-                name="firstName"
-                className="bordered-box w-full mb-6"
-                value={formData.firstName}
-                onChange={(event) => handleChange(event, "firstName")}
-              />
+              <input type="text" name="firstName" className="bordered-box w-full mb-6" value={formData.firstName} onChange={(event) => handleChange(event, "firstName")} />
               <Label text="Update your last name" />
-              <input
-                type="text"
-                name="lastName"
-                className="bordered-box w-full mb-8"
-                defaultValue={formData.lastName}
-                onChange={(event) => handleChange(event, "lastName")}
-              />
+              <input type="text" name="lastName" className="bordered-box w-full mb-8" defaultValue={formData.lastName} onChange={(event) => handleChange(event, "lastName")} />
               <Button size="small" type="primary" className="ml-auto">
                 Update
               </Button>
